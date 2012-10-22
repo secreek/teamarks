@@ -12,5 +12,5 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/web/tmp
+/src/web/tmp
 /tmp
