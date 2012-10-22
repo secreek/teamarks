@@ -1,4 +1,8 @@
 Web::Application.routes.draw do
+  resources :urls
+
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Url:</b>
+  <%= @url.url %>
+</p>
+
+<p>
+  <b>Page title:</b>
+  <%= @url.page_title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @url.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_url_path(@url) %> |
+<%= link_to 'Back', urls_path %>
