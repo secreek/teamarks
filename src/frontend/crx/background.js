@@ -11,31 +11,30 @@ function shareUrl(url, title, text) {
 	"POST",
 	endpoint + "?" +
 	"userid=" + userid +
-	"&apikey=" + apikey
-	);
-	var body = "url=" + encodeURIComponent(url) +
+	"&apikey=" + apikey +
 	"&title=" + encodeURIComponent(title) +
-	"&text=" + encodeURIComponent(text);
+	"&text=" + encodeURIComponent(text) +
+	"&url=" + encodeURIComponent(url)
+	);
 
 	req.onload = showResult;
-	req.send(body);
-	console.log("body:\n" + body);
+	req.send(null);
 }
 
 function showResult() {
 	var result = req.responseXML.getElementsByTagName("Result");
 	console.log("Server returned: " + result);
-	
+
 	// Feedback Method #1
 	var notification = webkitNotifications.createNotification('shareicon_64x64.png', 'Teamarks', result);
 	notification.show();
-	
+
 	// Feedback Method #2
 	chrome.browserAction.setBadgeText ( { text: "done" } );
 	setTimeout(function () {
 	    chrome.browserAction.setBadgeText( { text: "" } );
 	}, 1000);
-	
+
 	// And we could use both
 }
 
