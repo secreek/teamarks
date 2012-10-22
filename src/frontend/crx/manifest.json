@@ -1,16 +1,18 @@
 {
-   "background_page": "background.html",
-   "browser_action": {
-      "default_icon": "shareicon_64x64.png",
-      "default_title": "Share this Page"
-   },
-   "description": "This extension adds a sharing button to the toolbar which allows you to share the page link with your team.",
-   "icons": {
-      "64": "shareicon_64x64.png"
-   },
-   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUIs7zo19KSxE1qu01fnwuZCQeFRvVF/oVVEeoHfsrtAq34Q+l3RhRKkq0Yj4dhq3RMM5TACxmN8N8VzNsmeiM1eOtdHl31E48IpHrUgedpPbZiKzJDCO/ey3TodCVyFNomuoM+sAuRiEE4HzIMYGs2kthETha/qF8pdTHQ82R4QIDAQAB",
-   "name": "Share this Page",
-   "options_page": "options.html",
-   "permissions": [ "tabs", "http://*/*", "https://*/*", "http://api.teamarks.com/", "https://api.teamarks.com/" ],
-   "version": "0.1"
+"manifest_version": 2,
+"name": "Share this Page",
+"version": "0.2",
+"description": "This extension adds a sharing button to the toolbar which allows you to share the page link with your team.",
+"icons": {
+	"64": "shareicon_64x64.png"
+},
+"background": {
+	"scripts": ["background.js"]
+},
+"browser_action": {
+	"default_icon": "shareicon_64x64.png",
+	"default_title": "Share this Page"
+},
+"options_page": "options.html",
+"permissions": [ "tabs", "http://*/*", "https://*/*", "http://api.teamarks.com/", "https://api.teamarks.com/" ]
 }

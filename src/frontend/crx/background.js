@@ -1,9 +1,5 @@
-<!--
-	* Some code grabbed from the official example
--->
-<html>
-<head>
-<script>
+//	* Some code grabbed from the official example
+
 var req;
 
 function shareUrl(url, title, text) {
@@ -63,6 +59,3 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 		});
 	}
 });
-</script>
-</head>
-</html>
