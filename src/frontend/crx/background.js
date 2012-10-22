@@ -25,6 +25,8 @@ function shareUrl(url, title, text) {
 function showResult() {
 	var result = req.responseXML.getElementsByTagName("Result");
 	console.log("Server returned: " + result);
+	var notification = webkitNotifications.createNotification('shareicon_64x64.png', 'Teamarks', result);
+	notification.show();
 	// change icon back
 }
 
