@@ -20,12 +20,12 @@
 	- id
 	- name:string
 ## API
-- POST /api/url?source=user_id&url=XXXXX
+- POST /v1/share?source=user_id&url=XXXXX
 	- {"success"}
-	- {"error"} 
-- GET /api/url?after=date_time
+	- {"error"}
+- GET /v1/list?after=date_time
 	- [{"user_id": "10001", "links":[{"url": "http://www.baidu.com", "page_title" : "百度"}, {"url": "http://www.google.com", "page_title" : "Google"}]}, …]
-- GET /api/user?id=XXXX
+- GET /v1/user?id=XXXX
 	- {"user_id": "10001", "nick_name": "gof", "email"":"gof@gmail.com"}
 
 ## Backend
