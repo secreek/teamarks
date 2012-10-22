@@ -4,9 +4,12 @@
 ## Model
 - User
 	- id
-	- nick name: string
+	- username(nickname): string
 	- email: string
+	- password: string
 - Team __AA__
+	- id
+	- teamname:string
 - Url
 	- id
 	- url: string
@@ -14,7 +17,8 @@
 	- selected text: string
 	- from: User
 - Tag __AA__
-
+	- id
+	- name:string
 ## API
 - POST /api/url?source=user_id&url=XXXXX
 	- {"success"}
