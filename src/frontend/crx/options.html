@@ -1,11 +1,10 @@
-<!DOCTYPE>
 <!--
 	* Some code grabbed from the official example
 -->
 <html>
 <head>
 <title>Options for the Teamarks extension </title>
-<style>
+<style type="text/css">
 	body {
 		 font-family: "Optima", sans-serif;
 		 font-size: 20px;
@@ -30,11 +29,11 @@
 		 font-size: 20px;
 	}
 	h1 {
-		font-size: 100px;
-		font-family: "Edwardian Script ITC", "Palatino Linotype", serif;
+		font-size: 64px;
+		font-family: "Zapfino", "Edwardian Script ITC", "Palatino Linotype", serif;
 		color: green;
-		line-height: 64px;
-		text-shadow: 0px 1px 0px white;
+/*		line-height: 64px;
+*/		text-shadow: 0px 1px 0px white;
 		text-align: center;
 	}
 	#main {
@@ -45,35 +44,8 @@
 		color: green;
 	}
 </style>
-<script>
-function load() {
-	if (window.localStorage == null) {
-		alert("LocalStorage must be enabled.");
-		document.getElementById('save').disabled = true;
-		return;
-	}
-
-	console.log('loading options.');
-	document.getElementById('endpoint').value = window.localStorage.endpoint;
-	document.getElementById('userid').value = window.localStorage.userid;
-	document.getElementById('apikey').value = window.localStorage.apikey;
-}
-
-function save() {
-	if (window.localStorage == null) {
-		alert("LocalStorage must be enabled.");
-		return;
-	}
-	console.log('saving options.');
-	window.localStorage.endpoint = document.getElementById('endpoint').value;
-	window.localStorage.userid = document.getElementById('userid').value;
-	window.localStorage.apikey = document.getElementById('apikey').value;
-	document.getElementById('status').innerHTML = "Saved";
-	setTimeout(function() {document.getElementById('status').innerHTML = "";}, 1000);
-}
-</script>
 </head>
-<body onload="load()">
+<body>
 	<div id="main">
 		<h1><img src="shareicon_64x64.png" width="64" height="64" />Teamarks</h1>
 		<div id="options">
@@ -107,11 +79,12 @@ function save() {
 						<span id="status"></span>
 					</td>
 					<td>
-						<button id="save" onclick="save()">Save</button>
+						<button id="saveme">Save</button>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
+	<script type="text/javascript" src="options.js"></script>
 </body>
 </html>
