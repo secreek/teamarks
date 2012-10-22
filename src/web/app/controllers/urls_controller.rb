@@ -47,11 +47,11 @@ class UrlsController < ApplicationController
 
     respond_to do |format|
       if @err_msg
-        format.html {render :json => { :status => :failed, :message => @err_msg }}
+        format.html {render json: { status: :failed, message: @err_msg }}
       elsif @url.save
-        format.html {render :json => { :entity => @url, :status => :success }}
+        format.html {render json: { entity: @url, status: :success }}
       else
-        format.html {render :json => { :status => :failed }}
+        format.html {render json: { status: :failed }}
       end
     end
   end
