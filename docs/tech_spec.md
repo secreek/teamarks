@@ -3,10 +3,10 @@
 
 ## Model
 - User
-	- id
+	- id  (requires: url-safe)
 	- username(nickname): string
 	- email: string
-	- password: string
+	- apikey: string (requires: url-safe)
 - Team __AA__
 	- id
 	- teamname:string
