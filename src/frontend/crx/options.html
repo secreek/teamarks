@@ -1,0 +1,117 @@
+<!DOCTYPE>
+<!--
+	* Some code grabbed from the official example
+-->
+<html>
+<head>
+<title>Options for the Teamarks extension </title>
+<style>
+	body {
+		 font-family: "Optima", sans-serif;
+		 font-size: 20px;
+		background-color: silver;
+		color: #333;
+		padding: 100px;
+	}
+	#options {
+		margin: auto;
+		width: 400px;
+		background-color: white;
+		padding: 20px;
+		box-shadow: 2px 1px 10px gray;
+		border-radius: 10px;
+		 font-family: "Optima", sans-serif;
+		 font-size: 20px;
+	}
+	button {
+		font-size: large;
+		width: 100%;
+		 font-family: "Optima", sans-serif;
+		 font-size: 20px;
+	}
+	h1 {
+		font-size: 100px;
+		font-family: "Edwardian Script ITC", "Palatino Linotype", serif;
+		color: green;
+		line-height: 64px;
+		text-shadow: 0px 1px 0px white;
+		text-align: center;
+	}
+	#main {
+		margin: auto;
+		width: 600px;
+	}
+	#status {
+		color: green;
+	}
+</style>
+<script>
+function load() {
+	if (window.localStorage == null) {
+		alert("LocalStorage must be enabled.");
+		document.getElementById('save').disabled = true;
+		return;
+	}
+
+	console.log('loading options.');
+	document.getElementById('endpoint').value = window.localStorage.endpoint;
+	document.getElementById('userid').value = window.localStorage.userid;
+	document.getElementById('apikey').value = window.localStorage.apikey;
+}
+
+function save() {
+	if (window.localStorage == null) {
+		alert("LocalStorage must be enabled.");
+		return;
+	}
+	console.log('saving options.');
+	window.localStorage.endpoint = document.getElementById('endpoint').value;
+	window.localStorage.userid = document.getElementById('userid').value;
+	window.localStorage.apikey = document.getElementById('apikey').value;
+	document.getElementById('status').innerHTML = "Saved";
+	setTimeout(function() {document.getElementById('status').innerHTML = "";}, 1000);
+}
+</script>
+</head>
+<body onload="load()">
+	<div id="main">
+		<h1><img src="shareicon_64x64.png" width="64" height="64" />Teamarks</h1>
+		<div id="options">
+			<table>
+				<tr>
+					<td>
+						Endpoint:
+					</td>
+					<td>
+						<input id="endpoint" type = "text" size = "50" name = "endpoint"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						User ID:
+					</td>
+					<td>
+						<input id="userid" type="text" size="50" name="userid" value="42"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						API Key:
+					</td>
+					<td>
+						<input id="apikey" type="text" size="50" name="apikey" value="XXXXXXXXXXXXXX"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span id="status"></span>
+					</td>
+					<td>
+						<button id="save" onclick="save()">Save</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
