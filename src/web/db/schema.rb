@@ -11,15 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022132108) do
+ActiveRecord::Schema.define(:version => 20121022133234) do
 
-  create_table "urls", :force => true do |t|
-    t.string   "url"
-    t.string   "page_title"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
+# Could not dump table "urls" because of following StandardError
+#   Unknown type 'url' for column 'poster'
 
   create_table "users", :force => true do |t|
     t.string   "email"

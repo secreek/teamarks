@@ -32,6 +32,30 @@ class UrlsController < ApplicationController
     end
   end
 
+  def share
+    @err_msg = false
+    poster = User.find(params[:userid])
+    if poster.apikey == params[:apikey]
+      @url = Url.new
+      @url.description = params[:text]
+      @url.page_title = params[:title]
+      @url.url = params[:url]
+      @url.user = poster
+    else
+      @err_msg = 'APIKEY does not match'
+    end
+
+    respond_to do |format|
+      if @err_msg
+        format.html {render :json => { :status => :failed, :message => @err_msg }}
+      elsif @url.save
+        format.html {render :json => { :entity => @url, :status => :success }}
+      else
+        format.html {render :json => { :status => :failed }}
+      end
+    end
+  end
+
   # GET /urls/1/edit
   def edit
     @url = Url.find(params[:id])
