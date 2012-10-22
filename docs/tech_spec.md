@@ -20,9 +20,10 @@
 	- id
 	- name:string
 ## API
-- POST /v1/share?source=user_id&url=XXXXX
-	- {"success"}
-	- {"error"}
+- POST /v1/share?userid=<user_id>&apikey=<apikey>&url=<url>&title=<title>&text=<text>
+	- Return: {"success"} or {"error"}
+	- Parameters: title and text are optional
+
 - GET /v1/list?after=date_time
 	- [{"user_id": "10001", "links":[{"url": "http://www.baidu.com", "page_title" : "百度"}, {"url": "http://www.google.com", "page_title" : "Google"}]}, …]
 - GET /v1/user?id=XXXX
