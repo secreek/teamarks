@@ -10,6 +10,7 @@
 - Team __AA__
 	- id
 	- teamname:string
+	- mailinglist: string (`reply-to` field of notification email)
 - Url
 	- id
 	- url: string
