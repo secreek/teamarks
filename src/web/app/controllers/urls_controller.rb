@@ -32,30 +32,6 @@ class UrlsController < ApplicationController
     end
   end
 
-  def share
-    @err_msg = false
-    poster = User.find(params[:userid])
-    if poster.apikey == params[:apikey]
-      @url = Url.new
-      @url.description = params[:text]
-      @url.page_title = params[:title]
-      @url.url = params[:url]
-      @url.user = poster
-    else
-      @err_msg = 'APIKEY does not match'
-    end
-
-    respond_to do |format|
-      if @err_msg
-        format.html {render json: { status: :failed, message: @err_msg }}
-      elsif @url.save
-        format.html {render json: { entity: @url, status: :success }}
-      else
-        format.html {render json: { status: :failed }}
-      end
-    end
-  end
-
   # GET /urls/1/edit
   def edit
     @url = Url.find(params[:id])
@@ -104,4 +80,58 @@ class UrlsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # For URL APIs
+
+  def share
+    @err_msg = false
+    poster = User.find(params[:userid])
+    if poster.apikey == params[:apikey]
+      @url = Url.new
+      @url.description = params[:text]
+      @url.page_title = params[:title]
+      @url.url = params[:url]
+      @url.poster = poster
+    else
+      @err_msg = 'APIKEY does not match'
+    end
+
+    respond_to do |format|
+      if @err_msg
+        format.html {render json: { status: :failed, message: @err_msg }}
+      elsif @url.save
+        format.html {render json: { entity: @url, status: :success }}
+      else
+        format.html {render json: { status: :failed }}
+      end
+    end
+  end
+
+  def list_urls
+    after = params[:after]
+    @after_date = false
+    begin
+      @after_date = DateTime.strptime(after)
+    rescue => detail
+      #print detail.backtrace.join('\n')
+    end
+
+    @lists = []
+    users = User.find(:all).to_a
+    users.each do |user|
+      partial_lists = Url.find(:all).select do |url|
+        res = (url.poster == user.id)
+        print res
+        (res &= url.created_at >= d) if @after_date
+        return res
+      end
+      @lists << {user_id: user.id, links: partial_lists}
+    end
+
+    respond_to do |format|
+      format.json {render json: @lists}
+    end
+
+  end
+
 end
