@@ -107,13 +107,16 @@ class UrlsController < ApplicationController
     end
   end
 
-  def list_urls
+  def list
+    puts params
     after = params[:after]
+    puts after
+    puts "what the fuck?"
     @after_date = false
     begin
-      @after_date = DateTime.strptime(after)
+      @after_date = DateTime.strptime(after, '%Y-%m-%d')
     rescue => detail
-      #print detail.backtrace.join('\n')
+      print detail.backtrace.join('\n')
     end
 
     @lists = []
@@ -121,17 +124,15 @@ class UrlsController < ApplicationController
     users.each do |user|
       partial_lists = Url.find(:all).select do |url|
         res = (url.poster == user.id)
-        print res
         (res &= url.created_at >= d) if @after_date
-        return res
+        res
       end
       @lists << {user_id: user.id, links: partial_lists}
     end
 
     respond_to do |format|
-      format.json {render json: @lists}
+      format.html {render json: @lists}
     end
-
   end
 
 end
