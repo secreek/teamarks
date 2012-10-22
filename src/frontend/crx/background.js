@@ -25,9 +25,18 @@ function shareUrl(url, title, text) {
 function showResult() {
 	var result = req.responseXML.getElementsByTagName("Result");
 	console.log("Server returned: " + result);
+	
+	// Feedback Method #1
 	var notification = webkitNotifications.createNotification('shareicon_64x64.png', 'Teamarks', result);
 	notification.show();
-	// change icon back
+	
+	// Feedback Method #2
+	chrome.browserAction.setBadgeText ( { text: "done" } );
+	setTimeout(function () {
+	    chrome.browserAction.setBadgeText( { text: "" } );
+	}, 1000);
+	
+	// And we could use both
 }
 
 function sharePage(tab_id, title, url, text) {
