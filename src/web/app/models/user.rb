@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
       key = self.username + "@" + DateTime.now.to_s
       self.apikey = Digest::MD5.hexdigest(key)
     end
+
+    def apikey=(key)
+      super key
+    end
 end
