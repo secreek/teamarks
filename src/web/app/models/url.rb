@@ -2,7 +2,7 @@ class Url < ActiveRecord::Base
   attr_accessible :description, :page_title, :url
   belongs_to :user
 
-  # V=virtual attributes
+  # virtual attributes
   attr_accessible :poster
 
   validates :url, presence: true
