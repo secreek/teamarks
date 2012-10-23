@@ -123,7 +123,7 @@ class UrlsController < ApplicationController
     users = User.find(:all).to_a
     users.each do |user|
       partial_lists = Url.find(:all).select do |url|
-        res = (url.poster == user.id)
+        res = (url.poster == user)
         (res &= url.created_at >= d) if @after_date
         res
       end
