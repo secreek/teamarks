@@ -91,7 +91,7 @@ class UrlsController < ApplicationController
       @url.description = params[:text]
       @url.page_title = params[:title]
       @url.url = params[:url]
-      @url.poster = poster
+      @url.user_id = poster.id
     else
       @err_msg = 'APIKEY does not match'
     end
@@ -108,10 +108,7 @@ class UrlsController < ApplicationController
   end
 
   def list
-    puts params
     after = params[:after]
-    puts after
-    puts "what the fuck?"
     @after_date = false
     begin
       @after_date = DateTime.strptime(after, '%Y-%m-%d')
@@ -123,7 +120,7 @@ class UrlsController < ApplicationController
     users = User.find(:all).to_a
     users.each do |user|
       partial_lists = Url.find(:all).select do |url|
-        res = (url.poster == user.id)
+        res = (url.user_id == user.id)
         (res &= url.created_at >= d) if @after_date
         res
       end
