@@ -14,11 +14,11 @@ class Subscribers
 end
 
 class Templet
-  attr_accessor :sender_name, :sender_urn, :recipient_urn, :recipient_name, :subject, :message_body
+  attr_accessor :sender_name, :sender_uri, :recipient_uri, :recipient_name, :subject, :message_body
   def reset
     @sender_name = ''
-    @sender_urn = ''
-    @recipient_urn = ''
+    @sender_uri = ''
+    @recipient_uri = ''
     @recipient_name = ''
     @subject = ''
     @message_body = ''

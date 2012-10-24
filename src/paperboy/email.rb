@@ -2,11 +2,12 @@
 
 require 'rubygems'
 require 'net/smtp'
-require 'settings'
+require './settings'
 
 class EmailTemplet < Templet
   def to_s
-    @subject + "\r\n\r\n" + "Dear #{@recipient_name},\r\n\r\n" + @message_body
+    @subject + "\r\n\r\n" + "Dear #{@recipient_name},\r\n\r\n" + \
+      "Today's new arrivals in Teamarks:\r\n\r\n" + @message_body
   end
 end
 
@@ -21,21 +22,17 @@ class Mailer
   end
   
   def send(msg, from, to)
-    if @smtp_addr and @smtp_port
-      smtp = Net::SMTP.new(addr, port)
-    else
-      # Defaults to localhost and port 25
-      smtp = Net::SMTP.new('localhost')
-
-    smtp.set_debug_output $stderr
-    smtp.start do {|smtp| smtp.send_message(msg, from, to)
+    Net::SMTP.start('localhost') do |smtp|
+      # smtp.set_debug_output $stderr
+      smtp.send_message(msg, from, to)
+    end
   end
 end
 
 class Spammer < Paperboy
   def deliver(paper)
     mailer = new Mailer()
-    mailer.send(paper, "#{paper.sender_name} <#{paper.sender_urn}>", "#{paper.recipient_name} <#{paper.recipient_urn}>")
+    mailer.send(paper, "#{paper.sender_name} <#{paper.sender_uri}>", "#{paper.recipient_name} <#{paper.recipient_uri}>")
   end
 end
 

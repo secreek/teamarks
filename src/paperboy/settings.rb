@@ -3,8 +3,9 @@
 require 'json'
 
 module Settings
-  attr_accessor :options = {}
-  @filename = 'teamarks'
+  @options
+  @filename = 'teamarks.json'
+  
   def get_base_dir
     case `uname`
     when 'Darwin' then '/tmp' # DEBUG
@@ -13,11 +14,14 @@ module Settings
   end
   
   def save()
-    open(filename, 'w') {|f| JSON.dump(options, f)}
+    open(@filename, 'w') {|f| JSON.dump(@options, f)}
   end
   
   def load()
-    options = open(filename) {|f| JSON.load(f)}
+    @options = open(get_base_dir + '/' + @filename) {|f| JSON.load(f)}
   end
   
+  def initialize
+    load
+  end
 end

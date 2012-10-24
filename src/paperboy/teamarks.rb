@@ -1,13 +1,13 @@
 # Teamark Support
 
 require 'json'
-require 'settings'
+require './settings'
 
 module TeaMarks_API
   include Settings
   
   def get_bookmarks
-    endpoint = options['endpoint_bookmarks']
+    endpoint = @options['endpoint_bookmarks']
     last = options['last']
     jr = request(endpoint + '?after=' + last)
     options['last'] = jr['last']
@@ -20,12 +20,10 @@ module TeaMarks_API
     request(endpoint)
   end
   
-  private
   def request(url)
     begin
-      # Send the request
-      # response = http request url ... # NOT IMPLEMENTED !
-      JSON.parse(response)
+      response = Net::HTTP.get_response(URI.parse(url))
+      JSON.parse(response.body)
     rescue
       # Notify the admin
       raise "Mission abandoned."
@@ -46,7 +44,7 @@ class TeamBookmarks < News
   def to_s
     s = ''
     @doc.each do |user_share|
-      s << yield user_share['userid']
+      s << yield(user_share['userid'])
       s << usershare.links.each {|link| s << link['title'] << link['url'] << link['description'] << ''}
     end
     s
@@ -68,7 +66,7 @@ class TeamarksTemplet < EmailTemplet
   def reset
     super
     @sender_name = "Teamarks"
-    @sender_urn = "noreply@teamarks.com"
+    @sender_uri = "noreply@teamarks.com"
     @subject = 'Bookmarks Shared by Your Teammates'
   end
 end
