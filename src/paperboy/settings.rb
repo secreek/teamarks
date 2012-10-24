@@ -23,7 +23,7 @@ module Settings
   end
 
   def save()
-    open(filename, 'w') {|f| JSON.dump(@options, f)}
+    open(get_base_dir + '/' + @filename, 'w') {|f| JSON.dump(@options, f)}
   end
 
   def load()
