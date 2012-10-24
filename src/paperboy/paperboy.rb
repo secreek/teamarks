@@ -1,13 +1,13 @@
 # Paperboy for Teamarks
 # = Main Entrance File =
 #
-# Known Issues: 
+# Known Issues:
 #   * No team support
 #
 
-require './society'
-require './email'
-require './teamarks'
+require_relative 'society'
+require_relative 'email'
+require_relative 'teamarks'
 
 composer = EmailComposer(EmailTemplet.new, TeamBookmarks.new)
 subscribers = TeamMembers.new

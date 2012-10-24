@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'net/smtp'
-require './settings'
+require_relative 'settings'
 
 class EmailTemplet < Templet
   def to_s
@@ -20,7 +20,7 @@ class Mailer
     @smtp_addr = options['smtp_addr']
     @smtp_port = options['smtp_port']
   end
-  
+
   def send(msg, from, to)
     Net::SMTP.start('localhost') do |smtp|
       # smtp.set_debug_output $stderr

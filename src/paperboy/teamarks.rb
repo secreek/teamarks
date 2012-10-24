@@ -1,11 +1,11 @@
 # Teamark Support
 
 require 'json'
-require './settings'
+require_relative 'settings'
 
 module TeaMarks_API
   include Settings
-  
+
   def get_bookmarks
     endpoint = @options['endpoint_bookmarks']
     last = options['last']
@@ -14,12 +14,12 @@ module TeaMarks_API
     save
     jr['result']
   end
-  
+
   def get_subscribers
     endpoint = options['endpoint_subscribers']
     request(endpoint)
   end
-  
+
   def request(url)
     begin
       response = Net::HTTP.get_response(URI.parse(url))
@@ -33,14 +33,14 @@ end
 
 class TeamBookmarks < News
   include TeaMarks_API
-  
+
   attr_accessor :doc
-  
+
   def initialize
     super
     @doc = get_bookmarks
   end
-  
+
   def to_s
     s = ''
     @doc.each do |user_share|
@@ -53,9 +53,9 @@ end
 
 class TeamMembers < Subscribers
   include TeaMarks_API
-  
+
   attr_accessor :doc
-  
+
   def initialize
     super
     @doc = get_subscribers
