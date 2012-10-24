@@ -113,27 +113,21 @@ class UrlsController < ApplicationController
   end
 
   def list
-    after = params[:after]
-    @after_date = false
-    begin
-      @after_date = DateTime.strptime(after, '%Y-%m-%d')
-    rescue => detail
-      print detail.backtrace.join('\n')
-    end
+    # 0 if params[:after] is not an int
+    @after = params[:after].to_i
 
     @lists = []
     users = User.find(:all).to_a
     users.each do |user|
       partial_lists = Url.find(:all).select do |url|
-        res = (url.user_id == user.id)
-        (res &= url.created_at >= d) if @after_date
-        res
+        res = (url.id > @after and url.user_id == user.id)
       end
       @lists << {user_id: user.id, links: partial_lists}
     end
 
     respond_to do |format|
-      format.html {render json: @lists}
+      # WARNING is this thread safe?
+      format.html {render json: {result: @lists, last: Url.find(:all).max.id }}
     end
   end
 

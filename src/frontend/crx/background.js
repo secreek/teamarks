@@ -22,7 +22,7 @@ function shareUrl(url, title, text) {
 }
 
 function showResult() {
-	var result = req.responseXML.getElementsByTagName("Result");
+	var result = req.responseXML.getElementsByTagName("Result")[0].textContent;
 	console.log("Server returned: " + result);
 
 	// Feedback Method #1
