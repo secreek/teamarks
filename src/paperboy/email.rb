@@ -27,7 +27,7 @@ class Mailer
   def send(msg, from, to)
     Net::SMTP.start('localhost') do |smtp|
       # smtp.set_debug_output $stderr
-      smtp.send_message(msg, from, to)
+      smtp.send_message(msg.to_s, from.to_s, to.to_s)
     end
   end
 end

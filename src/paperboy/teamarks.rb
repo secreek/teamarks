@@ -12,6 +12,8 @@ module TeaMarks_API
     last = options["last"].to_i
     jr = request("%s?after=%d" % [endpoint, last])
     jr['result']
+    options['last'] = jr['last']
+    save
   end
 
   def get_subscribers
