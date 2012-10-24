@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class UrlsController < ApplicationController
   # GET /urls
   # GET /urls.json
@@ -99,10 +101,13 @@ class UrlsController < ApplicationController
     respond_to do |format|
       if @err_msg
         format.html {render json: { status: :failed, message: @err_msg }}
+        format.xml {render xml: "<Result>谢特，貌似出问题了，请联系那群猴子们</Result>" }
       elsif @url.save
         format.html {render json: { entity: @url, status: :success }}
+        format.xml {render xml: "<Result>分享成功这件事我会乱说？</Result>" }
       else
         format.html {render json: { status: :failed }}
+        format.xml {render xml: "<Result>谢特，貌似出问题了，请联系那群猴子们</Result>" }
       end
     end
   end
