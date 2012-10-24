@@ -15,6 +15,10 @@ end
 
 class Templet
   attr_accessor :sender_name, :sender_uri, :recipient_uri, :recipient_name, :subject, :message_body
+  def initialize
+    reset
+  end
+
   def reset
     @sender_name = ''
     @sender_uri = ''
@@ -27,15 +31,15 @@ end
 
 class Composer
   attr_accessor :templet, :news
-  def initialze(templet, source)
+  def initialize(templet, source)
     @templet = templet
-    @news = news
+    @news = source
   end
-  
+
   def compose
-    templet.reset
+    @templet.reset
     yield @templet, @news
-    @templet.to_s
+    @templet
   end
 end
 

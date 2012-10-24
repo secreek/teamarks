@@ -12,6 +12,9 @@ class EmailTemplet < Templet
 end
 
 class EmailComposer < Composer
+  def initialize(templet, news)
+    super(templet, news)
+  end
 end
 
 class Mailer
@@ -30,8 +33,9 @@ class Mailer
 end
 
 class Spammer < Paperboy
+
   def deliver(paper)
-    mailer = new Mailer()
+    mailer = Mailer.new
     mailer.send(paper, "#{paper.sender_name} <#{paper.sender_uri}>", "#{paper.recipient_name} <#{paper.recipient_uri}>")
   end
 end
