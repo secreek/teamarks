@@ -1,2 +1,2 @@
 # Teamarks
-Teamarks is social bookmarks for small group or organization
+Teamarks is an bookmark sharing service for small groups and organizations
