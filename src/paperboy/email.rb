@@ -6,7 +6,7 @@ require_relative 'settings'
 
 class EmailTemplet < Templet
   def to_s
-    @subject + "\r\n\r\n" + "Dear #{@recipient_name},\r\n\r\n" + \
+    "Subject: " + @subject + "\r\n\r\n" + "Dear #{@recipient_name},\r\n\r\n" + \
       "Today's new arrivals in Teamarks:\r\n\r\n" + @message_body
   end
 end
