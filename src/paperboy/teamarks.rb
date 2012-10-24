@@ -11,9 +11,9 @@ module TeaMarks_API
     endpoint = options["endpoint_bookmarks"]
     last = options["last"].to_i
     jr = request("%s?after=%d" % [endpoint, last])
-    jr['result']
     options['last'] = jr['last']
     save
+    jr['result']
   end
 
   def get_subscribers
