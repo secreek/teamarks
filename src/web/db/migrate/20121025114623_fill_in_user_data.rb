@@ -24,6 +24,7 @@ class FillInUserData < ActiveRecord::Migration
     # User Four
     u = User.new
     u.email = 'voidmain1313113@gmail.com'
+    u.username = 'VoidMain'
     u.password = 'pwd'
     u.save
   end
