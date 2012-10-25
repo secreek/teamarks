@@ -1,0 +1,7 @@
+{
+  "cache_file_name" : "teamarks.json",
+  "base_dir": {
+    "Darwin" : "/etc/teamarks",
+    "Linux" : "/etc/teamarks"
+  }
+}
