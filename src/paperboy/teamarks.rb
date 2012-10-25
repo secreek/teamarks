@@ -63,12 +63,12 @@ class TeamBookmarks < News
       uid = member_name user_share['user_id']
       cur = ''
       user_share['links'].each do |link|
-        cur << "%s/%s/%s\r\n" %
+        cur << "%s\r\n%s\r\n%s\r\n" %
               [link['page_title'], link['url'], link['text']]
       end
 
       if cur.length > 0
-        s << "%s shared:\r\n%s" % [uid, cur]
+        s << "%s shared:\r\n%s\r\n\r\n" % [uid, cur]
       end
     end
     s.strip
