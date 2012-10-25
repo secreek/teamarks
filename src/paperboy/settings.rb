@@ -13,7 +13,7 @@ module Settings
   end
 
   def get_base_dir
-    case `uname`.strip
+    case `/usr/bin/uname`.strip
       when 'Darwin' then '/tmp'
       when 'Linux' then '/etc'
     end
