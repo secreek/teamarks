@@ -24,7 +24,10 @@ module Settings
     end
 
     def base_dir
-      "/etc/teamarks"
+      case `uname`.strip
+        when 'Darwin' then "/tmp/teamarks"
+        when 'Linux' then "/etc/teamarks"
+      end
     end
 
     def options

@@ -27,7 +27,8 @@ class Mailer
   end
 
   def send(msg, from, to)
-    if msg.length > 0
+    # send email only when someone actually shared something
+    if msg.message_body.length > 0
       Net::SMTP.start('localhost') do |smtp|
         # smtp.set_debug_output $stderr
         smtp.send_message(msg.to_s, from.to_s, to.to_s)

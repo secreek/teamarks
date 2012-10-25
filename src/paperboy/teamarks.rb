@@ -63,7 +63,7 @@ class TeamBookmarks < News
       uid = member_name user_share['user_id']
       user_share['links'].each do |link|
         s << "%s/%s/%s\r\n" %
-              [link['page_title'], link['url'], link['description']]
+              [link['page_title'], link['url'], link['text']]
       end
 
       if s.length > 0
