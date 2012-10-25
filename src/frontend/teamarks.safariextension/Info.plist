@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>FoOTOo</string>
+	<key>Builder Version</key>
+	<string>7536.26.14</string>
+	<key>CFBundleDisplayName</key>
+	<string>Teamarks</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.footoo.teamarks</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Global Page</key>
+		<string>global.html</string>
+		<key>Popovers</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>popover.html</string>
+				<key>Height</key>
+				<real>40</real>
+				<key>Identifier</key>
+				<string>popover</string>
+				<key>Width</key>
+				<real>40</real>
+			</dict>
+		</array>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>share_this</string>
+				<key>Identifier</key>
+				<string>teamarks</string>
+				<key>Image</key>
+				<string>tabicon.png</string>
+				<key>Label</key>
+				<string>Share this Page</string>
+				<key>Palette Label</key>
+				<string>Teamarks</string>
+				<key>Popover</key>
+				<string>popover</string>
+				<key>Tool Tip</key>
+				<string>Share this page with Teamarks</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict/>
+	</dict>
+	<key>Description</key>
+	<string>Share a page with Teamarks</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>https://github.com/FoOTOo/teamarks</string>
+</dict>
+</plist>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+   <title>Teamarks</title>
+   <script type="text/javascript">
+		
+		var req;
+
+		function shareUrl(url, title, text) {
+			var endpoint = safari.extension.settings.endpoint;
+			var userid = safari.extension.settings.userid;
+			var apikey = safari.extension.settings.apikey;
+			req = new XMLHttpRequest();
+			req.open(
+			"POST",
+			endpoint + "?" +
+			"userid=" + userid +
+			"&apikey=" + apikey +
+			"&title=" + encodeURIComponent(title) +
+			"&text=" + encodeURIComponent(text) +
+			"&url=" + encodeURIComponent(url)
+			);
+
+			req.onload = showResult;
+			toggleImage("posting.png")
+			req.send(null);
+		}
+
+		function toggleImage(filename) {
+			var itemArray = safari.extension.toolbarItems;
+			for (var i = 0; i < itemArray.length; ++i) {
+			    var item = itemArray[i];
+			    if (item.identifier == "teamarks") {
+					item.image = safari.extension.baseURI + filename;
+					return;
+				}
+			}
+		}
+		
+		function showResult() {
+			var result = req.responseXML.getElementsByTagName("Result")[0].textContent;
+			console.log("Server returned: " + result);
+			
+			toggleImage("done.png");
+			setTimeout(function() {toggleImage("tabicon.png")}, 2000); 
+		}
+
+		function performCommand(event)
+		{
+			var activeTab = safari.application.activeBrowserWindow.activeTab; // event.target.browserWindow.activeTab
+	        var currentURL = activeTab.url;
+
+			if( currentURL )
+			{
+	            var currentTitle = activeTab.title ? activeTab.title : 'Untitled';
+				switch(event.command)
+				{
+					case 'share_this':
+						console.log('got it');
+						shareUrl(currentURL, currentTitle, "(Sent from Safari)"); // FIXME: Param 'text' is ignored
+					break;
+				}
+			}
+		}
+
+		function validateCommand(event)
+		{
+			switch(event.command)
+			{
+					case 'share_it':
+						event.target.disabled = !event.target.browserWindow.activeTab.url;
+					break;
+			}
+		}
+		
+		safari.application.addEventListener("command", performCommand, false);
+		safari.application.addEventListener("validate", validateCommand, false);
+   </script>
+</head>
+<body>
+</body>
+</html>
