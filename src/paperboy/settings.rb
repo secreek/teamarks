@@ -36,7 +36,7 @@ module Settings
   end
 
   def base_dir
-    @env ||= `/usr/bin/uname`.strip
+    @env ||= `uname`.strip
     @config['base_dir'][@env]
   end
 
