@@ -3,6 +3,7 @@
 require 'json'
 require 'net/http'
 require_relative 'settings'
+require_relative 'gravatar_wrapper.rb'
 
 module TeaMarksAPI
   include Settings
@@ -57,18 +58,54 @@ class TeamBookmarks < News
     list.length == 0 ? 'Unknown User' : list[0]['username']
   end
 
+  def member_email(id)
+    list = @users.select do |user|
+      user['id'] == id
+    end
+
+    list.length == 0 ? '' : list[0]['email']
+  end
+
+  def share_item_template
+    msg = "<li class=\"link\">
+      <a href=\"%s\" title=\"%s\">
+        <div class=\"title\">
+          %s
+        </div>
+        <div class=\"site\">
+          <img class=\"favicon\" src=\"http://g.etfv.co/%s\"/>
+          <span class=\"host\">%s</span>
+        </div>
+        <p class=\"text\">
+          %s
+        </p>
+      </a>
+    </li>"
+  end
+
   def to_s
+    g = GravatarWrapper.new
     s = ''
     @doc.each do |user_share|
       uid = member_name user_share['user_id']
-      cur = ''
+      uemail = member_email user_share['user_id']
+      image_url = g.calculate(uemail)
+      pre = "<li class=\"user_share\">
+      <img class=\"avatar\" src=\"%s\" title=\"%s\"/>
+      <ul class=\"links\">" % [image_url, uid]
+      post = "</ul></li>"
+      content = ''
       user_share['links'].each do |link|
-        cur << "%s\r\n%s\r\n%s\r\n" %
-              [link['page_title'], link['url'], link['text']]
+        schema, path = link['url'].split(/\/\//)
+        path = path.split(/\//)[0]
+        host = "#{schema}//#{path}"
+        content << share_item_template %
+              [link['url'], link['url'], link['page_title'],
+               host, host, link['text']]
       end
 
-      if cur.length > 0
-        s << "%s shared:\r\n%s\r\n\r\n" % [uid, cur]
+      if content.length > 0
+        s << "%s %s %s" % [pre, content, post]
       end
     end
     s.strip

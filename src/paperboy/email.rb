@@ -6,14 +6,10 @@ require_relative 'settings'
 
 class EmailTemplet < Templet
   def to_s
-    "MIME-Version:1.0\r\n
-Content-type:text/html\r\n
-Subject:#{@subject}\r\n\r\n
-Dear #{@recipient_name},\r\n\r\n
-Today's new arrivals in Teamarks:\r\n\r\n
-#{@message_body}"
-
-    open('email.html').read
+    template_content = open('email.html').read
+    puts template_content
+    puts template_content.class
+    template_content % [@subject, @message_body]
   end
 end
 
@@ -33,6 +29,7 @@ class Mailer
   end
 
   def send(msg, from, to)
+    puts msg.to_s
     # send email only when someone actually shared something
     if msg.message_body.length > 0
       Net::SMTP.start('localhost') do |smtp|
