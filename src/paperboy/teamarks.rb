@@ -67,16 +67,23 @@ class TeamBookmarks < News
   end
 
   def share_item_template
-    msg = "<li class=\"link\">
-      <a href=\"%s\" title=\"%s\">
-        <div class=\"title\">
+    msg = "<li class=\"link\" style=\"list-style-type: none; margin: 0;
+      padding: 0; list-style-position: inside; margin: 0 0 20px 0;\">
+      <a style=\"display: block; text-decoration: none; width: 100%%;
+        color: rgb(51,51,51); padding: 5px\"
+        href=\"%s\" title=\"%s\">
+        <div style=\"font-size: large; padding: 5px; text-shadow: 0px 1px 1px white;\">
           %s
         </div>
-        <div class=\"site\">
-          <img class=\"favicon\" src=\"http://g.etfv.co/%s\"/>
-          <span class=\"host\">%s</span>
+        <div style=\"background-color: white; line-height: 16px; padding: 5px;
+          background: -webkit-linear-gradient(left, white 0%%, #ddd 100%%)\">
+          <img style=\"display: inline-block; vertical-align: middle\"
+            src=\"http://g.etfv.co/%s\"/>
+          <span style=\"display: inline-block; color: #666;
+            vertical-align: middle;\">%s</span>
         </div>
-        <p class=\"text\">
+        <p style=\"color: #666; margin: 3px 0; font-size: small; padding: 5px;
+          font-family: \"Palatino\", serif\">
           %s
         </p>
       </a>
@@ -90,9 +97,13 @@ class TeamBookmarks < News
       uid = member_name user_share['user_id']
       uemail = member_email user_share['user_id']
       image_url = g.calculate(uemail)
-      pre = "<li class=\"user_share\">
-      <img class=\"avatar\" src=\"%s\" title=\"%s\"/>
-      <ul class=\"links\">" % [image_url, uid]
+      pre = "<li style=\"list-style-type: none; margin: 0; padding: 0;
+        list-style-position: inside; background-color: #ddd; border-radius: 5px;
+        margin: 0 0 30px 0\">
+      <img style=\"width: 64px; height: 64px; display: inline-block;
+        box-shadow: 0px 3px 8px gray; vertical-align: top\"
+        src=\"%s\" title=\"%s\"/>
+      <ul style=\"display: inline-block; width: 300px; margin: 0; padding: 0; margin-left: 30px\">" % [image_url, uid]
       post = "</ul></li>"
       content = ''
       user_share['links'].each do |link|
