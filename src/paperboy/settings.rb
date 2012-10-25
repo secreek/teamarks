@@ -15,7 +15,7 @@ module Settings
   def get_base_dir
     case `/usr/bin/uname`.strip
       when 'Darwin' then '/tmp'
-      when 'Linux' then '/etc'
+      when 'Linux' then '/etc/teamarks'
     end
   end
 
