@@ -7,6 +7,10 @@ require_relative 'settings'
 module TeaMarks_API
   include Settings
 
+  def initialize
+    super
+  end
+
   def get_bookmarks
     endpoint = options["endpoint_bookmarks"]
     last = options["last"].to_i
@@ -76,8 +80,6 @@ class TeamarksTemplet < EmailTemplet
   def initialize
     super
     reset
-
-    puts @sender_name
   end
 
   def reset

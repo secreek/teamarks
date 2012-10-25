@@ -22,6 +22,8 @@ class Mailer
   def initialize
     @smtp_addr = options['smtp_addr']
     @smtp_port = options['smtp_port']
+
+    super # make sure the module's initialize got called
   end
 
   def send(msg, from, to)
