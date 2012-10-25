@@ -17,17 +17,20 @@ module Settings
       when 'Darwin' then '/tmp'
       when 'Linux' then '/etc'
     end
+  end
 
-    # For test, the temarks.json lives in current folder
-    '.'
+  def get_json_path
+    "%s/%s" % [get_base_dir, filename]
   end
 
   def save()
-    open(get_base_dir + '/' + @filename, 'w') {|f| JSON.dump(@options, f)}
+    open(get_json_path, 'w') {|f| JSON.dump(@options, f)}
   end
 
   def load()
-    @options = open(get_base_dir + '/' + filename) {|f| JSON.load(f)}
+    path = get_json_path
+    path = filename unless FileTest::exists?(path)
+    @options = open(path) {|f| JSON.load(f)}
   end
 
   def initialize
