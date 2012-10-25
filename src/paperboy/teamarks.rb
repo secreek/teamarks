@@ -4,14 +4,14 @@ require 'json'
 require 'net/http'
 require_relative 'settings'
 
-module TeaMarks_API
+module TeaMarksAPI
   include Settings
 
   def initialize
     super
   end
 
-  def get_bookmarks
+  def bookmarks
     endpoint = options["endpoint_bookmarks"]
     last = options["last"].to_i
     jr = request("%s?after=%d" % [endpoint, last])
@@ -20,7 +20,7 @@ module TeaMarks_API
     jr['result']
   end
 
-  def get_subscribers
+  def subscribers
     endpoint = options['endpoint_subscribers']
     request(endpoint)
   end
@@ -41,13 +41,13 @@ module TeaMarks_API
 end
 
 class TeamBookmarks < News
-  include TeaMarks_API
+  include TeaMarksAPI
 
   attr_accessor :doc
 
   def initialize
     super
-    @doc = get_bookmarks
+    @doc = bookmarks
   end
 
   def to_s
@@ -65,13 +65,13 @@ class TeamBookmarks < News
 end
 
 class TeamMembers < Subscribers
-  include TeaMarks_API
+  include TeaMarksAPI
 
   attr_accessor :doc
 
   def initialize
     super
-    @doc = get_subscribers
+    @doc = subscribers
   end
 end
 

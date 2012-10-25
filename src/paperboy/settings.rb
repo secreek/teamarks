@@ -1,5 +1,4 @@
 # Load / Save settings on local machine
-
 require 'json'
 
 # WARNING every class that includes this module should
