@@ -27,7 +27,7 @@ module Settings
   end
 
   def filename
-    @config['cache_file_name']
+    @config['api_config_file_name']
   end
 
   def options
