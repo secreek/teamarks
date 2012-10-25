@@ -90,7 +90,7 @@ class UrlsController < ApplicationController
     poster = User.find(params[:userid])
     if poster.apikey == params[:apikey]
       @url = Url.new
-      @url.description = params[:text]
+      @url.text = params[:text]
       @url.page_title = params[:title]
       @url.url = params[:url]
       @url.user_id = poster.id

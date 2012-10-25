@@ -30,8 +30,6 @@ module TeaMarksAPI
       response = Net::HTTP.get_response(URI.parse(url))
       if response.body.length > 0
         JSON.parse(response.body)
-      else
-        nil
       end
     rescue
       # Notify the admin
@@ -43,24 +41,37 @@ end
 class TeamBookmarks < News
   include TeaMarksAPI
 
-  attr_accessor :doc
+  attr_accessor :doc, :users
 
   def initialize
     super
     @doc = bookmarks
+    @users = subscribers
+  end
+
+  def member_name(id)
+    list = @users.select do |user|
+      user['id'] == id
+    end
+
+    list.length == 0 ? 'Unknown User' : list[0]['username']
   end
 
   def to_s
     s = ''
     @doc.each do |user_share|
-      uid = user_share['user_id'].to_s
-      s << uid << "\r\n"
+      uid = member_name user_share['user_id']
+      cur = ''
       user_share['links'].each do |link|
-        s << "Page Title: %s (%s) \r\n" % [link['page_title'], link['url']]
-        s << "Description: %s\r\n" % link['description']
+        cur << "%s/%s/%s\r\n" %
+              [link['page_title'], link['url'], link['text']]
+      end
+
+      if cur.length > 0
+        s << "%s shared:\r\n%s" % [uid, cur]
       end
     end
-    s
+    s.strip
   end
 end
 
