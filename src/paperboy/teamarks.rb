@@ -30,8 +30,6 @@ module TeaMarksAPI
       response = Net::HTTP.get_response(URI.parse(url))
       if response.body.length > 0
         JSON.parse(response.body)
-      else
-        nil
       end
     rescue
       # Notify the admin
