@@ -43,24 +43,36 @@ end
 class TeamBookmarks < News
   include TeaMarksAPI
 
-  attr_accessor :doc
+  attr_accessor :doc, :users
 
   def initialize
     super
     @doc = bookmarks
+    @users = subscribers
+  end
+
+  def member_name(id)
+    list = @users.select do |user|
+      user['id'] == id
+    end
+
+    list.length == 0 ? 'Unknown User' : list[0]['username']
   end
 
   def to_s
     s = ''
     @doc.each do |user_share|
-      uid = user_share['user_id'].to_s
-      s << uid << "\r\n"
+      uid = member_name user_share['user_id']
       user_share['links'].each do |link|
-        s << "Page Title: %s (%s) \r\n" % [link['page_title'], link['url']]
-        s << "Description: %s\r\n" % link['description']
+        s << "%s/%s/%s\r\n" %
+              [link['page_title'], link['url'], link['description']]
+      end
+
+      if s.length > 0
+        s = "%s\r\n%s" % [uid, s]
       end
     end
-    s
+    s.strip
   end
 end
 
