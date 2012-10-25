@@ -20,19 +20,6 @@
 	<dict>
 		<key>Global Page</key>
 		<string>global.html</string>
-		<key>Popovers</key>
-		<array>
-			<dict>
-				<key>Filename</key>
-				<string>popover.html</string>
-				<key>Height</key>
-				<real>40</real>
-				<key>Identifier</key>
-				<string>popover</string>
-				<key>Width</key>
-				<real>40</real>
-			</dict>
-		</array>
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
@@ -47,7 +34,7 @@
 				<key>Palette Label</key>
 				<string>Teamarks</string>
 				<key>Popover</key>
-				<string>popover</string>
+				<string></string>
 				<key>Tool Tip</key>
 				<string>Share this page with Teamarks</string>
 			</dict>

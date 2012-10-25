@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>DefaultValue</key>
-		<string>http://api.teamarks.com:3000/v1/share.xml</string>
+		<string>http://api.teamarks.com/v1/share.xml</string>
 		<key>Key</key>
 		<string>endpoint</string>
 		<key>Title</key>
@@ -13,6 +13,8 @@
 		<string>TextField</string>
 	</dict>
 	<dict>
+		<key>DefaultValue</key>
+		<real>3</real>
 		<key>Key</key>
 		<string>userid</string>
 		<key>Title</key>
@@ -21,6 +23,8 @@
 		<string>TextField</string>
 	</dict>
 	<dict>
+		<key>DefaultValue</key>
+		<string>04da4f69307f67d66275a9dfaa394930</string>
 		<key>Key</key>
 		<string>apikey</string>
 		<key>Title</key>
