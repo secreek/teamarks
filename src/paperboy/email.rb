@@ -20,16 +20,13 @@ class EmailComposer < Composer
 end
 
 class Mailer
-  include Settings
   def initialize
-    @smtp_addr = options['smtp_addr']
-    @smtp_port = options['smtp_port']
-
-    super # make sure the module's initialize got called
+    # These settings are never gonna change once the instance is created
+    @smtp_addr = Settings.instance.options['smtp_addr']
+    @smtp_port = Settings.instance.options['smtp_port']
   end
 
   def send(msg, from, to)
-    puts msg.to_s
     # send email only when someone actually shared something
     if msg.message_body.length > 0
       Net::SMTP.start('localhost') do |smtp|
@@ -41,10 +38,11 @@ class Mailer
 end
 
 class Spammer < Paperboy
-
   def deliver(paper)
     mailer = Mailer.new
-    mailer.send(paper, "#{paper.sender_name} <#{paper.sender_uri}>", "#{paper.recipient_name} <#{paper.recipient_uri}>")
+    mailer.send(paper,
+      "#{paper.sender_name} <#{paper.sender_uri}>",
+      "#{paper.recipient_name} <#{paper.recipient_uri}>")
   end
 end
 

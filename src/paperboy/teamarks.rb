@@ -6,23 +6,21 @@ require_relative 'settings'
 require_relative 'gravatar_wrapper.rb'
 
 module TeaMarksAPI
-  include Settings
-
   def initialize
-    super
+    Settings.instance.load
   end
 
   def bookmarks
-    endpoint = options["endpoint_bookmarks"]
-    last = options["last"].to_i
+    endpoint = Settings.instance.options["endpoint_bookmarks"]
+    last = Settings.instance.options["last"].to_i
     jr = request("%s?after=%d" % [endpoint, last])
-    options['last'] = jr['last']
-    save
+    Settings.instance.options['last'] = jr['last']
+    Settings.instance.save
     jr['result']
   end
 
   def subscribers
-    endpoint = options['endpoint_subscribers']
+    endpoint = Settings.instance.options['endpoint_subscribers']
     request(endpoint)
   end
 
@@ -108,8 +106,7 @@ class TeamBookmarks < News
       content = ''
       user_share['links'].each do |link|
         schema, path = link['url'].split(/\/\//)
-        path = path.split(/\//)[0]
-        host = "#{schema}//#{path}"
+        host = path.split(/\//)[0]
         content << share_item_template %
               [link['url'], link['url'], link['page_title'],
                host, host, link['text']]
