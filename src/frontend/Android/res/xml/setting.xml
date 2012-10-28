@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference
+        android:key="username"
+        android:title="@string/username_dialog_title"
+        android:summary="@string/username_summary"
+        android:defaultValue="teamarks" />    
+    <EditTextPreference
+        android:key="password"
+        android:title="@string/password_dialog_title"
+        android:summary="@string/password_summary"
+        android:defaultValue="password" />    
+     <EditTextPreference
+        android:key="apikey"
+        android:title="@string/apikey_dialog_title"
+        android:summary="@string/apikey_summary"
+        android:defaultValue="apikey" />    
+    
+</PreferenceScreen>

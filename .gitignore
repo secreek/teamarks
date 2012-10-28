@@ -14,3 +14,19 @@
 /log/*.log
 /src/web/tmp
 /tmp
+# built application files
+ *.apk
+ *.ap_
+#
+# # files for the dex VM
+ *.dex
+#
+# # Java class files
+ *.class
+#
+# # generated files
+/src/frontend/Android/bin/
+/src/frontend/Android/gen/
+#
+# # Local configuration file (sdk path, etc)
+/src/frontend/Android/local.properties
