@@ -43,7 +43,7 @@ public class ShareActivity extends Activity {
 	
 	ArrayList<NameValuePair> postParameters;
 	
-	public static String endpoint ="http://api.teamarks.com/v1/share?";
+	public static String endpoint ="http://api.teamarks.com/v1/share.xml?";
 	
 	
     @SuppressLint("NewApi")
@@ -90,7 +90,9 @@ public class ShareActivity extends Activity {
     		etShareTitle = (EditText)findViewById(R.id.et_share_title);
     		etShareLink = (EditText)findViewById(R.id.et_share_link);    	
     		etShareText = (EditText)findViewById(R.id.et_share_text);
+//    		etShareText.setHint(getText(R.string.texthint));
     		
+    		etShareText.setText(getText(R.string.defaulttext));
     		tvShareTitle = (TextView)findViewById(R.id.tv_share_title);
     		tvShareTitle = (TextView)findViewById(R.id.tv_share_link);
     		tvShareTitle = (TextView)findViewById(R.id.tv_share_text);
@@ -99,7 +101,6 @@ public class ShareActivity extends Activity {
     		setting = PreferenceManager.getDefaultSharedPreferences(this);
     		username = setting.getString("username", null);
     		apikey = setting.getString("apikey", null);
-    	//	etShareText.setText(username + apikey);
     		btShare.setOnClickListener(new OnClickListener() 
     		{
 				
@@ -107,23 +108,11 @@ public class ShareActivity extends Activity {
 
 				public void onClick(View v) {
 					
-//					text = etShareText.getText().toString()+"\n"+getText(R.string.device_tag);
+
 					text = etShareText.getText().toString();
 
-
-//					String query = "user_id="+ username + "&"
-//							+"apikey="+ apikey + "&" 
-//							+"url="+ url + "&"
-//							+"title="+ title + "&"
-//							+"text="+ text;
-//					String query = endpoint
-//							+"user_id="+ username + "&"
-//							+"apikey="+ apikey + "&" 
-//							+"url="+ url + "&"
-//							+"title="+ title + "&"
-//							+"text="+ text;
 				    postParameters = new ArrayList<NameValuePair>();
-				    postParameters.add(new BasicNameValuePair("user_id", username));
+				    postParameters.add(new BasicNameValuePair("userid", username));
 				    postParameters.add(new BasicNameValuePair("apikey", apikey));							
 				    postParameters.add(new BasicNameValuePair("url", url));		
 				    postParameters.add(new BasicNameValuePair("title", title));		

@@ -25,4 +25,6 @@
     <string name="share_link">Link</string>
     <string name="share_text">Description</string>
     <string name="bt_share">Share to Teamarks</string>
+    <string name="texthint">Send from My Android</string>
+    <string name="defaulttext">Send from My Android</string>
 </resources>

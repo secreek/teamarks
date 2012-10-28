@@ -41,6 +41,7 @@ public class TeamarksService {
 	    ResponseHandler<String> handler = new BasicResponseHandler();  
 	        try {  
 	           result = httpclient.execute(request, handler);  
+	           Log.i(tag,result);
 	        } catch (ClientProtocolException e) {  
 	            e.printStackTrace();  
 	        } catch (IOException e) {  
