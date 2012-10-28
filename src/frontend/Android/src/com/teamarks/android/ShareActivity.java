@@ -1,24 +1,19 @@
 package com.teamarks.android;
 
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class ShareActivity extends Activity {
 	
@@ -50,12 +46,25 @@ public class ShareActivity extends Activity {
 	public static String endpoint ="http://api.teamarks.com/v1/share?";
 	
 	
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
         createWidget();
-        
+        String strVer=this.GetSystemVersion();
+        strVer=strVer.substring(0,3).trim();
+        float fv=Float.valueOf(strVer);
+        if(fv>2.3)
+        {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+        .detectAll() // 这里可以替换为detectAll() 就包括了磁盘读写和网络I/O
+        .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+        .detectLeakedSqlLiteObjects() //探测SQLite数据库操作
+        .penaltyDeath()
+        .build()); 
+        }
         Intent shareIntent = getIntent();
         url =ShareUtils.getBody(shareIntent);
         title = ShareUtils.getSubject(shareIntent);
@@ -63,12 +72,10 @@ public class ShareActivity extends Activity {
 
         etShareTitle.setText(title);
         etShareLink.setText(url);
+        
     }
 
-    private String URLEncoder(String body, String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,5 +141,9 @@ public class ShareActivity extends Activity {
 					}
 				}
 			});
+    }
+    public static String GetSystemVersion()
+    {
+    return android.os.Build.VERSION.RELEASE;
     }
 }

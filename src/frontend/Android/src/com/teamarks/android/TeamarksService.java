@@ -2,7 +2,6 @@ package com.teamarks.android;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -48,7 +47,7 @@ public class TeamarksService {
 	            e.printStackTrace();  
 	        }  
 	        httpclient.getConnectionManager().shutdown();  
-	        Log.i(tag,result);  		
+	  //      Log.i(tag,result);  		
 		
 	}
 }

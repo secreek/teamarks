@@ -15,5 +15,5 @@
         android:title="@string/apikey_dialog_title"
         android:summary="@string/apikey_summary"
         android:defaultValue="apikey" />    
-    
+   
 </PreferenceScreen>
