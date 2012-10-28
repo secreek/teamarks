@@ -1,6 +1,7 @@
 package com.teamarks.android;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -113,10 +114,29 @@ public class ShareActivity extends Activity {
 
 				    postParameters = new ArrayList<NameValuePair>();
 				    postParameters.add(new BasicNameValuePair("userid", username));
-				    postParameters.add(new BasicNameValuePair("apikey", apikey));							
-				    postParameters.add(new BasicNameValuePair("url", url));		
-				    postParameters.add(new BasicNameValuePair("title", title));		
-				    postParameters.add(new BasicNameValuePair("text", text));		
+				    postParameters.add(new BasicNameValuePair("apikey", apikey));
+				    String encodedUrl = "";
+				    try {
+						encodedUrl = URLEncoder.encode(url, "utf-8");
+					} catch (UnsupportedEncodingException e1) {
+						encodedUrl = url;
+					}	
+				    postParameters.add(new BasicNameValuePair("url", encodedUrl));
+				    String encodedTitle = "";
+				    try {
+				    	encodedTitle = URLEncoder.encode(title, "utf-8");
+					} catch (UnsupportedEncodingException e1) {
+						encodedTitle = title;
+					}	
+				    postParameters.add(new BasicNameValuePair("title", encodedTitle));
+				    
+				    String encodedText = "";
+				    try {
+				    	encodedText = URLEncoder.encode(text, "utf-8");
+					} catch (UnsupportedEncodingException e1) {
+						encodedText = text;
+					}
+				    postParameters.add(new BasicNameValuePair("text", encodedText));		
 
 //					Toast.makeText(getApplicationContext(), url.toString(), Toast.LENGTH_LONG).show();		
 //					TeamarksService.shareUrl(url.toString());
