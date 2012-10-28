@@ -7,18 +7,16 @@ function shareUrl(url, title, text) {
 	var userid = window.localStorage.userid;
 	var apikey = window.localStorage.apikey;
 	req = new XMLHttpRequest();
-	req.open(
-	"POST",
-	endpoint + "?" +
-	"userid=" + userid +
-	"&apikey=" + apikey +
-	"&title=" + encodeURIComponent(title) +
-	"&text=" + encodeURIComponent(text) +
-	"&url=" + encodeURIComponent(url)
-	);
-
+	req.open("POST", endpoint);
+	req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	req.onload = showResult;
-	req.send(null);
+
+	content = '{ "userid": "' + userid + '", "apikey": "' + apikey + '" ,' +
+		'"title": "' + encodeURIComponent(title) + '",' +
+		'"text": "' + encodeURIComponent(text) + '",' +
+		'"url": "' + encodeURIComponent(url) + '" }';
+
+	req.send(content);
 }
 
 function showResult() {

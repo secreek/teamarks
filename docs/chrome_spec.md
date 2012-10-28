@@ -6,21 +6,22 @@
 - User ID
 - API Key
 
-### Button
+### Sharing
 
-Click the button to send an ajax request to `api.teamarks.com`.
+- Click the **Share this Page** button to send an ajax request to `api.teamarks.com`
+- Title, URL and selected text are sent
 
 #### Feedback
 
-- Browser based Desktop Notification
+- Browser based Desktop Notification (Not perfect in Lion)
 - Button Badge
 
 ### Installation
 
-### Developer Mode
+#### Developer
 
 - [Packaging](https://developer.chrome.com/extensions/packaging.html)
 
-### Hosted
+#### Hosted
 
-*NOT IMPLEMENTED*
+- Open the compiled package on [Github](https://github.com/FoOTOo/teamarks/blob/master/compiled/chrome-package/teamarks-chrome.crx?raw=true)

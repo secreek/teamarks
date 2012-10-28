@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'url'
 
 class UrlsController < ApplicationController
   # GET /urls
@@ -90,9 +91,9 @@ class UrlsController < ApplicationController
     poster = User.find(params[:userid])
     if poster.apikey == params[:apikey]
       @url = Url.new
-      @url.text = params[:text]
-      @url.page_title = params[:title]
-      @url.url = params[:url]
+      @url.text = URI.unescape(params[:text])
+      @url.page_title = URI.unescape(params[:title])
+      @url.url = URI.unescape(params[:url])
       @url.user_id = poster.id
     else
       @err_msg = 'APIKEY does not match'
