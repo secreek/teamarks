@@ -49,7 +49,7 @@ class TeamBookmarks < News
   end
 
   def has_news?
-    @news.length > 0
+    (@news.inject(0) { |sum, content| sum + content['links'].length }) > 0
   end
 end
 
