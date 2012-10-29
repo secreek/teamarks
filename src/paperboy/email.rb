@@ -7,8 +7,6 @@ require_relative 'settings'
 class EmailTemplet < Templet
   def to_s
     template_content = open('email.html').read
-    puts template_content
-    puts template_content.class
     template_content % [@subject, @message_body]
   end
 end
@@ -27,13 +25,10 @@ class Mailer
   end
 
   def send(msg, from, to)
-    # send email only when someone actually shared something
-    if msg.message_body.length > 0
-      Net::SMTP.start('localhost') do |smtp|
-        # smtp.set_debug_output $stderr
-        smtp.send_message(msg.to_s, from.to_s, to.to_s)
-      end
-    end # else, give up send email
+    Net::SMTP.start('localhost') do |smtp|
+      # smtp.set_debug_output $stderr
+      smtp.send_message(msg.to_s, from.to_s, to.to_s)
+    end
   end
 end
 
@@ -45,5 +40,3 @@ class Spammer < Paperboy
       "#{paper.recipient_name} <#{paper.recipient_uri}>")
   end
 end
-
-
