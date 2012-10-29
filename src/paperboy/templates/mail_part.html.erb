@@ -1,0 +1,66 @@
+Content-type: text/html
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css" media="screen">
+      .link a:hover{ background: #eef8ff; box-shadow: 0 1px 3px #333; border-radius: 3px; }
+    </style>
+  </head>
+  <body style="background-color: gray; font-family: 'Lucida Grande', 'Calibri',
+    sans-serif; color: #333;">
+    <%
+      g = GravatarWrapper.new
+      member_manager = TeamMembers.new
+    %>
+    <ul style="margin: 0; padding: 0; width: 400px; padding: 20px; margin: auto;
+      background-color: #ddd; border-radius: 5px; box-shadow: 0px 1px 5px #333">
+      <% bookmarks.each do |bookmark|
+        next if bookmark['links'].length == 0
+        user_name = member_manager.member_name bookmark['user_id']
+        user_email = member_manager.member_email bookmark['user_id']
+        image_url = g.calculate(user_email)
+      %>
+      <li style="list-style-type: none; margin: 0; padding: 0;
+        list-style-position: inside; background-color: #ddd; border-radius: 5px;
+        margin: 0 0 30px 0">
+      <img style="width: 64px; height: 64px; display: inline-block;
+        box-shadow: 0px 3px 8px gray; vertical-align: top"
+        src="<%= image_url%>" title="<%= user_name%>"/>
+        <ul style="display: inline-block; width: 300px; margin: 0; padding: 0; margin-left: 30px">
+        <%
+          bookmark['links'].each do |link|
+            schema, path = link['url'].split(/\/\//)
+            host = path.split(/\//)[0]
+            url = link['url']
+            page_title = link['page_title']
+            text = link['text']
+        %>
+          <li class="link" style="list-style-type: none; margin: 0;
+            padding: 0; list-style-position: inside; margin: 0 0 20px 0;">
+            <a style="display: block; text-decoration: none; width: 100%%;
+              color: rgb(51,51,51); padding: 5px;"
+              href="<%= url%>" title="<%= url%>">
+              <div style="font-size: large; padding: 5px; text-shadow: 0px 1px 1px white;">
+                <%= page_title%>
+              </div>
+              <div style="background-color: white; line-height: 16px; padding: 5px;
+                background: -webkit-linear-gradient(left, white 0%%, #ddd 100%%)">
+                <img style="display: inline-block; vertical-align: middle"
+                  src="http://g.etfv.co/<%= url%>">
+                <span style="display: inline-block; color: #666;
+                  vertical-align: middle;"><%= host%></span>
+              </div>
+              <p style="color: #666; margin: 3px 0; font-size: small; padding: 5px;
+                font-family: 'Palatino', serif">
+                <%= text%>
+              </p>
+            </a>
+          </li>
+        <% end %>
+        </ul>
+      </li>
+      <% end %>
+    </ul>
+  </body>
+</html>

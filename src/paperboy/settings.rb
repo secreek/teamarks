@@ -1,28 +1,31 @@
 # Load / Save settings on local machine
 require 'json'
+require 'singleton'
 
-# WARNING every class that includes this module should
-#         call super explicitly in initialize
-module Settings
+class Settings
+  include Singleton
+
+  attr_accessor :options
+
   def initialize
+    # init members
+    @options ||= Hash.new('')
+    @filename = "teamarks.json"
+
     load
   end
 
-  def save()
+  def save
     open(json_path, 'w') {|f| JSON.dump(@options, f)}
   end
 
-  def load()
+  def load
     path = json_path
-    path = filename unless FileTest::exists?(path)
+    path = @filename unless FileTest::exists?(path)
     @options = open(path) {|f| JSON.load(f)}
   end
 
   private
-    def filename
-      "teamarks.json"
-    end
-
     def base_dir
       case `uname`.strip
         when 'Darwin' then "/tmp/teamarks"
@@ -30,13 +33,7 @@ module Settings
       end
     end
 
-    def options
-      # set default value of hash items to ''
-      @options ||= Hash.new('')
-    end
-
     def json_path
-      "%s/%s" % [base_dir, filename]
+      "%s/%s" % [base_dir, @filename]
     end
-
 end
