@@ -22,17 +22,6 @@ class EmailTemplet < Templet
   end
 end
 
-class TeaMarksEmailTemplet < EmailTemplet
-  def initialize
-    super
-
-    @sender_name = "Teamarks"
-    @sender_uri = "noreply@teamarks.com"
-    @subject = "Bookmarks Shared by Your Teammates"
-    @marker = "TEAMARKS_MAIL_SEPERATOR"
-  end
-end
-
 class EmailComposer < Composer
   def initialize(templet, news)
     super(templet, news)

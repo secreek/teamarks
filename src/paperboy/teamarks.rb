@@ -81,3 +81,14 @@ class TeamMembers < Subscribers
     list.length == 0 ? '' : list[0]['email']
   end
 end
+
+class TeaMarksEmailTemplet < EmailTemplet
+  def initialize
+    super
+
+    @sender_name = "Teamarks"
+    @sender_uri = "noreply@teamarks.com"
+    @subject = "Bookmarks Shared by Your Teammates"
+    @marker = "TEAMARKS_MAIL_SEPERATOR"
+  end
+end
