@@ -14,7 +14,7 @@ Content-Transfer-Encoding: 8bit
       g = GravatarWrapper.new
       member_manager = TeamMembers.new
     %>
-    <ul style="margin: 0; padding: 0; width: 600px; padding: 20px; margin: auto;
+    <ul style="margin: 0; padding: 0; width: 500px; padding: 20px; margin: auto;
       background-color: #ddd; border-radius: 5px; box-shadow: 0px 1px 5px #333">
       <% bookmarks.each do |bookmark|
         next if bookmark['links'].length == 0
@@ -28,7 +28,7 @@ Content-Transfer-Encoding: 8bit
       <img style="width: 64px; height: 64px; display: inline-block;
         box-shadow: 0px 3px 8px gray; vertical-align: top"
         src="<%= image_url%>" title="<%= user_name%>"/>
-        <ul style="display: inline-block; width: 500px; margin: 0; padding: 0; margin-left: 30px">
+        <ul style="display: inline-block; width: 400px; margin: 0; padding: 0; margin-left: 30px">
         <%
           bookmark['links'].each do |link|
             schema, path = link['url'].split(/\/\//)
