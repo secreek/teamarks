@@ -1,0 +1,10 @@
+Subject: <%= templet.subject %>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary=<%= templet.marker%>
+--<%= templet.marker%>
+
+<%# concats different kinds of email parts %>
+<% templet.mail_parts.each do |mail_part| %>
+<%= mail_part.to_s %>
+--<%= templet.marker%>
+<% end %>

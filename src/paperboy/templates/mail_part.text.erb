@@ -1,0 +1,25 @@
+Content-type: text/plain
+
+Today's new arrivals in Teamarks:
+<%
+g = GravatarWrapper.new
+member_manager = TeamMembers.new
+bookmarks.each do |bookmark|
+  next if bookmark['links'].length == 0
+  user_name = member_manager.member_name bookmark['user_id']
+  user_email = member_manager.member_email bookmark['user_id']
+%>
+<%= user_name %> Shared:
+<%
+  bookmark['links'].each do |link|
+    schema, path = link['url'].split(/\/\//)
+    host = path.split(/\//)[0]
+    url = link['url']
+    page_title = link['page_title']
+    text = link['text']
+%>
+<%= page_title %>
+<%= url %>
+<%= text %>
+  <% end %>
+<% end %>
