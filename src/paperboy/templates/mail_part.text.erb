@@ -1,4 +1,4 @@
-Content-type: text/plain
+Content-Type: text/plain; charset=utf-8
 
 Today's new arrivals in Teamarks:
 <%
@@ -18,8 +18,8 @@ bookmarks.each do |bookmark|
     page_title = link['page_title']
     text = link['text']
 %>
-<%= page_title %>
-<%= url %>
-<%= text %>
-  <% end %>
+<%= page_title.strip %>
+<%= url.strip %>
+<%= text.strip %><% end %>
+
 <% end %>
