@@ -31,8 +31,8 @@ class EmailComposer < Composer
   def initialize(templet, news)
     super(templet, news)
 
-    @part_template_files = ['templates/mail_part.html.erb',
-      'templates/mail_part.text.erb']
+    @part_template_files = ['templates/mail_part.text.erb',
+      'templates/mail_part.html.erb']
   end
 
   def compose
@@ -58,7 +58,7 @@ class Mailer
   def send(msg, from, to)
     Net::SMTP.start('localhost') do |smtp|
       # smtp.set_debug_output $stderr
-      smtp.send_message(msg.to_s, from.to_s, to.to_s)
+      smtp.send_message(msg, from, to)
     end
   end
 end

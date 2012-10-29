@@ -1,3 +1,5 @@
+From: <%= templet.sender_name%> <<%= templet.sender_uri %>>
+To: <%= templet.recipient_name%> <<%= templet.recipient_uri %>>
 Subject: <%= templet.subject %>
 MIME-Version: 1.0
 Content-Type: multipart/alternative; boundary="<%= templet.marker%>"
