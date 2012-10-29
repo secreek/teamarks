@@ -21,7 +21,7 @@ class EmailTemplet < Templet
   end
 
   def add_part(erb_file, data)
-    erb = ERB.new(open(erb_file).read)
+    erb = ERB.new(open(erb_file).read.gsub(/\n/, "\r\n"))
     bookmarks = data.news
     @mail_parts << erb.result(binding)
   end
@@ -42,7 +42,7 @@ class EmailComposer < Composer
     end
     yield @templet
 
-    mail = ERB.new(open('templates/email.main.erb').read)
+    mail = ERB.new(open('templates/email.main.erb').read.gsub(/\n/, "\r\n"))
     @templet.mail_content = mail.result(binding)
     @templet
   end
