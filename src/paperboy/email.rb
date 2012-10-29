@@ -11,11 +11,6 @@ class EmailTemplet < Templet
 
   def initialize
     super
-
-    @sender_name = "Teamarks"
-    @sender_uri = "noreply@teamarks.com"
-    @subject = "Bookmarks Shared by Your Teammates"
-    @marker = "TEAMARKS_MAIL_SEPERATOR"
     @mail_parts = []
     @mail_content = ""
   end
@@ -24,6 +19,17 @@ class EmailTemplet < Templet
     erb = ERB.new(open(erb_file).read)
     bookmarks = data.news
     @mail_parts << erb.result(binding)
+  end
+end
+
+class TeaMarksEmailTemplet < EmailTemplet
+  def initialize
+    super
+
+    @sender_name = "Teamarks"
+    @sender_uri = "noreply@teamarks.com"
+    @subject = "Bookmarks Shared by Your Teammates"
+    @marker = "TEAMARKS_MAIL_SEPERATOR"
   end
 end
 

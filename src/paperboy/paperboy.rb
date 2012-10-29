@@ -10,7 +10,7 @@ require_relative 'email'
 require_relative 'teamarks'
 
 news = TeamBookmarks.new
-composer = EmailComposer.new(EmailTemplet.new, news)
+composer = EmailComposer.new(TeaMarksEmailTemplet.new, news)
 subscribers = TeamMembers.new
 boy = Spammer.new
 
