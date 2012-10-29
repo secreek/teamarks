@@ -11,6 +11,11 @@ class EmailTemplet < Templet
 
   def initialize
     super
+    reset
+  end
+
+  def reset
+    super
     @mail_parts = []
     @mail_content = ""
   end
@@ -31,10 +36,10 @@ class EmailComposer < Composer
   end
 
   def compose
+    @templet.reset
     @part_template_files.each do |template_file|
       @templet.add_part(template_file, news)
     end
-
     yield @templet
 
     mail = ERB.new(open('templates/email.main.erb').read)

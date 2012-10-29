@@ -14,8 +14,8 @@ module TeaMarksAPI
     endpoint = Settings.instance.options["endpoint_bookmarks"]
     last = Settings.instance.options["last"].to_i
     jr = request("%s?after=%d" % [endpoint, last])
-    #Settings.instance.options['last'] = jr['last']
-    #Settings.instance.save
+    Settings.instance.options['last'] = jr['last']
+    Settings.instance.save
     jr['result']
   end
 
@@ -85,7 +85,11 @@ end
 class TeaMarksEmailTemplet < EmailTemplet
   def initialize
     super
+    reset
+  end
 
+  def reset
+    super
     @sender_name = "Teamarks"
     @sender_uri = "noreply@teamarks.com"
     @subject = "Bookmarks Shared by Your Teammates"
