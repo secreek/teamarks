@@ -2,50 +2,72 @@
 
 require 'rubygems'
 require 'net/smtp'
+require 'erb'
 require_relative 'settings'
 
 class EmailTemplet < Templet
-  def to_s
-    template_content = open('email.html').read
-    puts template_content
-    puts template_content.class
-    template_content % [@subject, @message_body]
+  # Email specfic data
+  attr_accessor :mail_parts, :marker, :mail_content
+
+  def initialize
+    super
+
+    @sender_name = "Teamarks"
+    @sender_uri = "noreply@teamarks.com"
+    @subject = "Bookmarks Shared by Your Teammates"
+    @marker = "TEAMARKS_MAIL_SEPERATOR"
+    @mail_parts = []
+    @mail_content = ""
+  end
+
+  def add_part(erb_file, data)
+    erb = ERB.new(open(erb_file).read)
+    bookmarks = data.news
+    @mail_parts << erb.result(binding)
   end
 end
 
 class EmailComposer < Composer
   def initialize(templet, news)
     super(templet, news)
+
+    @part_template_files = ['templates/mail_part.html.erb',
+      'templates/mail_part.text.erb']
+  end
+
+  def compose
+    @part_template_files.each do |template_file|
+      @templet.add_part(template_file, news)
+    end
+
+    yield @templet
+
+    mail = ERB.new(open('templates/email.main.erb').read)
+    @templet.mail_content = mail.result(binding)
+    @templet
   end
 end
 
 class Mailer
-  include Settings
   def initialize
-    @smtp_addr = options['smtp_addr']
-    @smtp_port = options['smtp_port']
-
-    super # make sure the module's initialize got called
+    # These settings are never gonna change once the instance is created
+    @smtp_addr = Settings.instance.options['smtp_addr']
+    @smtp_port = Settings.instance.options['smtp_port']
   end
 
   def send(msg, from, to)
-    puts msg.to_s
-    # send email only when someone actually shared something
-    if msg.message_body.length > 0
-      Net::SMTP.start('localhost') do |smtp|
-        # smtp.set_debug_output $stderr
-        smtp.send_message(msg.to_s, from.to_s, to.to_s)
-      end
-    end # else, give up send email
+    Net::SMTP.start('localhost') do |smtp|
+      # smtp.set_debug_output $stderr
+      smtp.send_message(msg.to_s, from.to_s, to.to_s)
+    end
   end
 end
 
 class Spammer < Paperboy
-
   def deliver(paper)
     mailer = Mailer.new
-    mailer.send(paper, "#{paper.sender_name} <#{paper.sender_uri}>", "#{paper.recipient_name} <#{paper.recipient_uri}>")
+    mailer.send(paper.mail_content,
+      "#{paper.sender_name} <#{paper.sender_uri}>",
+      "#{paper.recipient_name} <#{paper.recipient_uri}>")
   end
 end
-
-

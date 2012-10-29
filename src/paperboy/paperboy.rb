@@ -9,16 +9,18 @@ require_relative 'society'
 require_relative 'email'
 require_relative 'teamarks'
 
-composer = EmailComposer.new(TeamarksTemplet.new, TeamBookmarks.new)
+news = TeamBookmarks.new
+composer = EmailComposer.new(EmailTemplet.new, news)
 subscribers = TeamMembers.new
 boy = Spammer.new
 
-subscribers.doc.each do |subcriber|
-  paper = composer.compose do |templet, news|
-    templet.recipient_name = subcriber['username']
-    templet.recipient_uri = subcriber['email']
-    templet.message_body = news.to_s {|userid| subcriber.select {|user| user['user_id'] == userid}}
-  end
+if news.has_news?
+  subscribers.members.each do |subcriber|
+    paper = composer.compose do |templet|
+      templet.recipient_name = subcriber['username']
+      templet.recipient_uri = subcriber['email']
+    end
 
-  boy.deliver paper
+    boy.deliver paper
+  end
 end
