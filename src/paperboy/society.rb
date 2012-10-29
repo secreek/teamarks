@@ -14,7 +14,8 @@ class Subscribers
 end
 
 class Templet
-  attr_accessor :sender_name, :sender_uri, :recipient_uri, :recipient_name, :subject, :message_body
+  attr_accessor :sender_name, :sender_uri, :recipient_uri, :recipient_name, :subject
+
   def initialize
     reset
   end
@@ -25,7 +26,6 @@ class Templet
     @recipient_uri = ''
     @recipient_name = ''
     @subject = ''
-    @message_body = ''
   end
 end
 
@@ -37,7 +37,6 @@ class Composer
   end
 
   def compose
-    @templet.reset
     yield @templet, @news
     @templet
   end
