@@ -1,4 +1,5 @@
-Content-type: text/html
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 <html>
   <head>
@@ -13,7 +14,7 @@ Content-type: text/html
       g = GravatarWrapper.new
       member_manager = TeamMembers.new
     %>
-    <ul style="margin: 0; padding: 0; width: 400px; padding: 20px; margin: auto;
+    <ul style="margin: 0; padding: 0; width: 500px; padding: 20px; margin: auto;
       background-color: #ddd; border-radius: 5px; box-shadow: 0px 1px 5px #333">
       <% bookmarks.each do |bookmark|
         next if bookmark['links'].length == 0
@@ -27,7 +28,7 @@ Content-type: text/html
       <img style="width: 64px; height: 64px; display: inline-block;
         box-shadow: 0px 3px 8px gray; vertical-align: top"
         src="<%= image_url%>" title="<%= user_name%>"/>
-        <ul style="display: inline-block; width: 300px; margin: 0; padding: 0; margin-left: 30px">
+        <ul style="display: inline-block; width: 400px; margin: 0; padding: 0; margin-left: 30px">
         <%
           bookmark['links'].each do |link|
             schema, path = link['url'].split(/\/\//)
@@ -38,14 +39,14 @@ Content-type: text/html
         %>
           <li class="link" style="list-style-type: none; margin: 0;
             padding: 0; list-style-position: inside; margin: 0 0 20px 0;">
-            <a style="display: block; text-decoration: none; width: 100%%;
+            <a style="display: block; text-decoration: none; width: 100%;
               color: rgb(51,51,51); padding: 5px;"
               href="<%= url%>" title="<%= url%>">
               <div style="font-size: large; padding: 5px; text-shadow: 0px 1px 1px white;">
                 <%= page_title%>
               </div>
               <div style="background-color: white; line-height: 16px; padding: 5px;
-                background: -webkit-linear-gradient(left, white 0%%, #ddd 100%%)">
+                background: -webkit-linear-gradient(left, white 0%, #ddd 100%)">
                 <img style="display: inline-block; vertical-align: middle"
                   src="http://g.etfv.co/<%= url%>">
                 <span style="display: inline-block; color: #666;
@@ -64,3 +65,4 @@ Content-type: text/html
     </ul>
   </body>
 </html>
+
