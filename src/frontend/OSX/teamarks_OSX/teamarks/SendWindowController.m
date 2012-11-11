@@ -6,8 +6,14 @@
 //  Copyright (c) 2012年 Xinrong Guo. All rights reserved.
 //
 
+#import <AFNetworking/AFNetworking.h>
 #import "SendWindowController.h"
 #import "LogTools.h"
+
+#define API_URL_BASE @"http://api.teamarks.com/"
+#define API_PATH_SHARE @"v1/share.xml"
+#define API_USERID @"2"
+#define API_KEY @"daf16f1b028b3eed07ae7835fc049cdcdaf16f1b028b3eed07ae7835fc049cdc"
 
 @interface SendWindowController ()
 
@@ -29,12 +35,18 @@
 {
     [super windowDidLoad];
     
+    // setup user interface
     [self.window setTitle:@"Teamarks"];
     
     [_textView setFont:[NSFont systemFontOfSize:13.0f]];
     
     [_sendingIndicator setHidden:YES];
     
+    // setup action
+    [_sendButton setTarget:self];
+    [_sendButton setAction:@selector(send:)];
+    
+    // fill textFields and textView
     [self fillTextFields];
 }
 
@@ -73,4 +85,36 @@
     }
 }
 
+- (void)send:(id)sender
+{
+    [_sendingIndicator setHidden:NO];
+    [_sendingIndicator startAnimation:nil];
+    
+    NSString *title = [_titleField stringValue];
+    NSString *url = [_urlField stringValue];
+    NSString *text = [[_textView textStorage] string];
+    
+    //DLog(@"%@\n%@\n%@", title, url, text);
+    
+    AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:API_URL_BASE]];
+    [client setStringEncoding:NSUTF8StringEncoding];
+    
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
+                                API_USERID, @"userid",
+                                API_KEY, @"apikey",
+                                title, @"title",
+                                text, @"text",
+                                url, @"url",
+                                nil];
+    
+    [client postPath:API_PATH_SHARE parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"send success");
+        [_sendingIndicator setHidden:YES];
+        [_sendingIndicator stopAnimation:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DLog(@"[ERROR]: %@", [error localizedDescription]);
+        [_sendingIndicator setHidden:YES];
+        [_sendingIndicator stopAnimation:nil];
+    }];
+}
 @end
