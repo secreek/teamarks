@@ -15,4 +15,5 @@
     [_sendWC showWindow:_sendWC.window];
 }
 
+
 @end

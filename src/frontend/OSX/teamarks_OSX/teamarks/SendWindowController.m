@@ -12,8 +12,8 @@
 
 #define API_URL_BASE @"http://api.teamarks.com/"
 #define API_PATH_SHARE @"v1/share.xml"
-#define API_USERID @"2"
-#define API_KEY @"daf16f1b028b3eed07ae7835fc049cdcdaf16f1b028b3eed07ae7835fc049cdc"
+#define API_USERID @"5"
+#define API_KEY @"3a2691d4a9cc4fe0c34cfb2c990bdecf"
 
 @interface SendWindowController ()
 
@@ -98,6 +98,7 @@
     
     AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:API_URL_BASE]];
     [client setStringEncoding:NSUTF8StringEncoding];
+    [client setParameterEncoding:AFJSONParameterEncoding];
     
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                 API_USERID, @"userid",
