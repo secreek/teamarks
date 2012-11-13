@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8CEEC6B84CB6404B9E2761C8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423419F4C05748098A65CE94 /* libPods.a */; };
+		C17439E416527A7A00C75A71 /* status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C17439E216527A7A00C75A71 /* status_icon.png */; };
+		C17439E516527A7A00C75A71 /* status_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C17439E316527A7A00C75A71 /* status_icon@2x.png */; };
+		C179DC121652377A00EA98B5 /* ShareGlyph.png in Resources */ = {isa = PBXBuildFile; fileRef = C179DC111652377A00EA98B5 /* ShareGlyph.png */; };
 		C1B64D50164F42D6007F63F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1B64D4F164F42D6007F63F7 /* Cocoa.framework */; };
 		C1B64D5A164F42D6007F63F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1B64D58164F42D6007F63F7 /* InfoPlist.strings */; };
 		C1B64D5C164F42D6007F63F7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B64D5B164F42D6007F63F7 /* main.m */; };
@@ -22,6 +25,9 @@
 /* Begin PBXFileReference section */
 		423419F4C05748098A65CE94 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		66D6860866504D438E80B957 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		C17439E216527A7A00C75A71 /* status_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_icon.png; sourceTree = "<group>"; };
+		C17439E316527A7A00C75A71 /* status_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_icon@2x.png"; sourceTree = "<group>"; };
+		C179DC111652377A00EA98B5 /* ShareGlyph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareGlyph.png; sourceTree = "<group>"; };
 		C1B64D4B164F42D6007F63F7 /* teamarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teamarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B64D4F164F42D6007F63F7 /* Cocoa.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C1B64D52164F42D6007F63F7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -56,6 +62,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C179DC101652377A00EA98B5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C17439E216527A7A00C75A71 /* status_icon.png */,
+				C17439E316527A7A00C75A71 /* status_icon@2x.png */,
+				C179DC111652377A00EA98B5 /* ShareGlyph.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C1B64D40164F42D6007F63F7 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +121,7 @@
 				C1B64D71164F90C6007F63F7 /* SendWindowController.m */,
 				C1B64D72164F90C6007F63F7 /* SendWindowController.xib */,
 				C1B64D64164F42D6007F63F7 /* MainMenu.xib */,
+				C179DC101652377A00EA98B5 /* Resources */,
 				C1B64D56164F42D6007F63F7 /* Supporting Files */,
 			);
 			path = teamarks;
@@ -186,6 +203,9 @@
 				C1B64D60164F42D6007F63F7 /* Credits.rtf in Resources */,
 				C1B64D66164F42D6007F63F7 /* MainMenu.xib in Resources */,
 				C1B64D74164F90C6007F63F7 /* SendWindowController.xib in Resources */,
+				C179DC121652377A00EA98B5 /* ShareGlyph.png in Resources */,
+				C17439E416527A7A00C75A71 /* status_icon.png in Resources */,
+				C17439E516527A7A00C75A71 /* status_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

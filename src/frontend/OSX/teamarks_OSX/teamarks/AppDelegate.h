@@ -7,10 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SendWindowController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (atomic, strong) SendWindowController *sendWC;
 
 @end
