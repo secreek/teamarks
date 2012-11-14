@@ -10,6 +10,8 @@
 		8CEEC6B84CB6404B9E2761C8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423419F4C05748098A65CE94 /* libPods.a */; };
 		C17439E416527A7A00C75A71 /* status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C17439E216527A7A00C75A71 /* status_icon.png */; };
 		C17439E516527A7A00C75A71 /* status_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C17439E316527A7A00C75A71 /* status_icon@2x.png */; };
+		C17439E71653211100C75A71 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C17439E61653211100C75A71 /* libxml2.dylib */; };
+		C1743A8D1653A9BF00C75A71 /* GSHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C1743A8C1653A9BF00C75A71 /* GSHTMLParser.m */; };
 		C179DC121652377A00EA98B5 /* ShareGlyph.png in Resources */ = {isa = PBXBuildFile; fileRef = C179DC111652377A00EA98B5 /* ShareGlyph.png */; };
 		C1B64D50164F42D6007F63F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1B64D4F164F42D6007F63F7 /* Cocoa.framework */; };
 		C1B64D5A164F42D6007F63F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1B64D58164F42D6007F63F7 /* InfoPlist.strings */; };
@@ -27,6 +29,9 @@
 		66D6860866504D438E80B957 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C17439E216527A7A00C75A71 /* status_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_icon.png; sourceTree = "<group>"; };
 		C17439E316527A7A00C75A71 /* status_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_icon@2x.png"; sourceTree = "<group>"; };
+		C17439E61653211100C75A71 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		C1743A8B1653A9BF00C75A71 /* GSHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHTMLParser.h; sourceTree = "<group>"; };
+		C1743A8C1653A9BF00C75A71 /* GSHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHTMLParser.m; sourceTree = "<group>"; };
 		C179DC111652377A00EA98B5 /* ShareGlyph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareGlyph.png; sourceTree = "<group>"; };
 		C1B64D4B164F42D6007F63F7 /* teamarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teamarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B64D4F164F42D6007F63F7 /* Cocoa.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -53,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C17439E71653211100C75A71 /* libxml2.dylib in Frameworks */,
 				C1B64DD1164FE815007F63F7 /* SystemConfiguration.framework in Frameworks */,
 				C1B64D50164F42D6007F63F7 /* Cocoa.framework in Frameworks */,
 				8CEEC6B84CB6404B9E2761C8 /* libPods.a in Frameworks */,
@@ -62,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C1743A84165395F400C75A71 /* GSHTMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				C1743A8B1653A9BF00C75A71 /* GSHTMLParser.h */,
+				C1743A8C1653A9BF00C75A71 /* GSHTMLParser.m */,
+			);
+			path = GSHTMLParser;
+			sourceTree = "<group>";
+		};
 		C179DC101652377A00EA98B5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +108,7 @@
 		C1B64D4E164F42D6007F63F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C17439E61653211100C75A71 /* libxml2.dylib */,
 				C1B64DD0164FE815007F63F7 /* SystemConfiguration.framework */,
 				C1B64D4F164F42D6007F63F7 /* Cocoa.framework */,
 				C1B64D51164F42D6007F63F7 /* Other Frameworks */,
@@ -114,6 +130,7 @@
 		C1B64D55164F42D6007F63F7 /* teamarks */ = {
 			isa = PBXGroup;
 			children = (
+				C1743A84165395F400C75A71 /* GSHTMLParser */,
 				C1B64D7B164FA213007F63F7 /* LogTools */,
 				C1B64D61164F42D6007F63F7 /* AppDelegate.h */,
 				C1B64D62164F42D6007F63F7 /* AppDelegate.m */,
@@ -236,6 +253,7 @@
 				C1B64D5C164F42D6007F63F7 /* main.m in Sources */,
 				C1B64D63164F42D6007F63F7 /* AppDelegate.m in Sources */,
 				C1B64D73164F90C6007F63F7 /* SendWindowController.m in Sources */,
+				C1743A8D1653A9BF00C75A71 /* GSHTMLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +347,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "teamarks/teamarks-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "teamarks/teamarks-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -342,6 +364,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "teamarks/teamarks-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "teamarks/teamarks-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

@@ -9,6 +9,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "SendWindowController.h"
 #import "LogTools.h"
+#import <GSHTMLParser.h>
 
 #define API_URL_BASE @"http://api.teamarks.com/"
 #define API_PATH_SHARE @"v1/share.xml"
@@ -17,7 +18,7 @@
 
 @interface SendWindowController ()
 
-@property (strong, nonatomic) NSXMLParser *titleParser;
+@property (strong, nonatomic) GSHTMLParser *titleParser;
 @property (assign, nonatomic) BOOL foundTitle;
 
 @end
@@ -92,18 +93,18 @@
         NSURL *url = [firstMatch URL];
         
         
-        DLog(@"URL [%@]", [url absoluteString]);
+        //DLog(@"URL [%@]", [url absoluteString]);
         //DLog(@"range [%lu, %lu]", [firstMatch range].location, [firstMatch range].length);
         
         NSString *titlePart = [_rawText substringWithRange:NSMakeRange(0, firstMatch.range.location)];
         NSString *textPart = [_rawText substringWithRange:NSMakeRange(firstMatch.range.location + firstMatch.range.length, _rawText.length - titlePart.length - firstMatch.range.length)];
         
-        DLog(@"1: [%@]", titlePart);
-        DLog(@"2: [%@]", textPart);
+        //DLog(@"1: [%@]", titlePart);
+        //DLog(@"2: [%@]", textPart);
         
         // TODO: trim the title and text
         
-        [_titleField setStringValue:titlePart];
+        //[_titleField setStringValue:titlePart];
         [_urlField setStringValue:[url absoluteString]];
         [_textView setString:textPart];
         
@@ -113,28 +114,30 @@
 
 - (void)updateTitleWithURL:(NSURL *)url {
     [_titleIndicator setHidden:NO];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (_titleParser != nil) {
-            [_titleParser setDelegate:nil];
-            [_titleParser abortParsing];
-        }
-        [self setTitleParser:[[NSXMLParser alloc] initWithContentsOfURL:url]];
-        [_titleParser setDelegate:self];
-        [_titleParser parse];
-    });
+    
+    if (_titleParser != nil) {
+        [_titleParser setDelegate:nil];
+        [_titleParser abortParsing];
+    }
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17" forHTTPHeaderField:@"User-Agent"];
+    [self setTitleParser:[[GSHTMLParser alloc] initWithURLRequest:request]];
+    [_titleParser setDelegate:self];
+    [_titleParser parse];
+    
 }
 
 #pragma mark - NSXMLParserDelegate
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+- (void)parser:(GSHTMLParser *)parser didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict
 {
-    NSLog(@"%@", elementName);
+    //NSLog(@"%@", elementName);
     if ([elementName isEqualToString:@"title"]) {
         _foundTitle = YES;
     }
 }
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+- (void)parser:(GSHTMLParser *)parser didEndElement:(NSString *)elementName
 {
     if ([elementName isEqualToString:@"title"]) {
         _foundTitle = NO;
@@ -143,32 +146,29 @@
     }
 }
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+- (void)parser:(GSHTMLParser *)parser foundCharacters:(NSString *)string {
     if (_foundTitle) {
         DLog(@"%@", string);
-        dispatch_async(dispatch_get_main_queue(), ^{
+        if (string != nil) {
             [_titleField setStringValue:string];
             [_titleIndicator setHidden:YES];
-        });
+        }
     }
 }
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
+- (void)parserDidEndDocument:(GSHTMLParser *)parser {
     NSLog(@"endDocument");
     [_titleIndicator setHidden:YES];
 }
 
-- (void)parserDidStartDocument:(NSXMLParser *)parser {
-    NSLog(@"start parse");
+- (void)parserDidStartDocument:(GSHTMLParser *)parser {
+    NSLog(@"start parse"); 
 }
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    NSLog(@"parseErrorOccurred [%@] line[%ld] col[%ld]", [parseError localizedDescription], parser.lineNumber, parser.columnNumber);
+- (void)parser:(GSHTMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+    //NSLog(@"parseErrorOccurred [%@]", [parseError localizedDescription]);
 }
 
-- (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError {
-    NSLog(@"validationErrorOccurred [%@]", [validationError localizedDescription]);
-}
 
 #pragma mark - Share
 

@@ -7,10 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GSHTMLParser.h"
 
 @interface SendWindowController : NSWindowController
 <
-NSXMLParserDelegate,
+GSHTMLParserDelegate,
 NSTextFieldDelegate
 >
 
