@@ -9,11 +9,16 @@
 #import <Cocoa/Cocoa.h>
 #import "GSHTMLParser.h"
 
+@protocol  SendWindowControllerDelegate;
+
 @interface SendWindowController : NSWindowController
 <
 GSHTMLParserDelegate,
-NSTextFieldDelegate
+NSTextFieldDelegate,
+NSWindowDelegate
 >
+
+@property (weak, nonatomic) id<SendWindowControllerDelegate> delegate;
 
 @property (assign) IBOutlet NSButtonCell *sendButton;
 @property (assign) IBOutlet NSProgressIndicator *sendingIndicator;
@@ -21,8 +26,15 @@ NSTextFieldDelegate
 @property (assign) IBOutlet NSTextField *titleField;
 @property (assign) IBOutlet NSTextField *urlField;
 @property (assign) IBOutlet NSTextView *textView;
-
+@property (readonly, getter = isSending) BOOL sending;
 
 @property (strong, nonatomic) NSString *rawText;
+
+@end
+
+
+@protocol  SendWindowControllerDelegate <NSObject>
+
+- (void)sendWindowControllerDidSend:(SendWindowController *)windowController;
 
 @end

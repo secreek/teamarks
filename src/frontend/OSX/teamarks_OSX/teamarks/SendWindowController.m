@@ -20,10 +20,15 @@
 
 @property (strong, nonatomic) GSHTMLParser *titleParser;
 @property (assign, nonatomic) BOOL foundTitle;
+@property (assign, nonatomic) BOOL shouldRelease;
 
 @end
 
 @implementation SendWindowController
+
+- (void)dealloc {
+    [_titleParser abortParsing];
+}
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -38,6 +43,8 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+    
+    [self.window setDelegate:self];
     
     // setup user interface
     [self.window setTitle:@"Teamarks"];
@@ -69,10 +76,7 @@
     
     // fill textFields and textView
     [self fillTextFields];
-    
-    
 }
-
 
 - (void)fillTextFields
 {
@@ -104,7 +108,7 @@
         
         // TODO: trim the title and text
         
-        //[_titleField setStringValue:titlePart];
+        [_titleField setStringValue:titlePart];
         [_urlField setStringValue:[url absoluteString]];
         [_textView setString:textPart];
         
@@ -139,6 +143,7 @@
 
 - (void)parser:(GSHTMLParser *)parser didEndElement:(NSString *)elementName
 {
+    //NSLog(@"%@", elementName);
     if ([elementName isEqualToString:@"title"]) {
         _foundTitle = NO;
         [_titleParser abortParsing];
@@ -174,12 +179,14 @@
 
 - (void)changeSendStatus:(BOOL)sending {
     if (sending) {
+        _sending = YES;
         [_sendingIndicator setHidden:NO];
         [_sendingIndicator startAnimation:nil];
         
         [_sendButton setEnabled:NO];
     }
     else {
+        _sending = NO;
         [_sendingIndicator setHidden:YES];
         [_sendingIndicator stopAnimation:nil];
         
@@ -215,9 +222,20 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"[ERROR]: %@", [error localizedDescription]);
         [self changeSendStatus:NO];
+        if (_shouldRelease) {
+            [_delegate sendWindowControllerDidSend:self];
+        }
     }];
 }
 
+#pragma mark - NSWindowDelegate
+
+- (void)windowWillClose:(NSNotification *)notification {
+    if (_sending) {
+        [_delegate sendWindowControllerDidSend:self];
+    }
+    self.shouldRelease = YES;
+}
 
 #pragma mark - NSControlTextEditingDelegate
 
@@ -238,7 +256,6 @@
             [_sendButton setEnabled:YES];
         }
     }
-    
 }
 
 

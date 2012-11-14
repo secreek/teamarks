@@ -12,6 +12,9 @@
 		C17439E516527A7A00C75A71 /* status_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C17439E316527A7A00C75A71 /* status_icon@2x.png */; };
 		C17439E71653211100C75A71 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C17439E61653211100C75A71 /* libxml2.dylib */; };
 		C1743A8D1653A9BF00C75A71 /* GSHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C1743A8C1653A9BF00C75A71 /* GSHTMLParser.m */; };
+		C1743A991653CD2B00C75A71 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C1743A981653CD2B00C75A71 /* DDHotKeyCenter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1743A9B1653CD3D00C75A71 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1743A9A1653CD3D00C75A71 /* Carbon.framework */; };
+		C1743A9D1653CED000C75A71 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = C1743A9C1653CED000C75A71 /* readme.md */; };
 		C179DC121652377A00EA98B5 /* ShareGlyph.png in Resources */ = {isa = PBXBuildFile; fileRef = C179DC111652377A00EA98B5 /* ShareGlyph.png */; };
 		C1B64D50164F42D6007F63F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1B64D4F164F42D6007F63F7 /* Cocoa.framework */; };
 		C1B64D5A164F42D6007F63F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1B64D58164F42D6007F63F7 /* InfoPlist.strings */; };
@@ -32,6 +35,10 @@
 		C17439E61653211100C75A71 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C1743A8B1653A9BF00C75A71 /* GSHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHTMLParser.h; sourceTree = "<group>"; };
 		C1743A8C1653A9BF00C75A71 /* GSHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHTMLParser.m; sourceTree = "<group>"; };
+		C1743A971653CD2B00C75A71 /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
+		C1743A981653CD2B00C75A71 /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
+		C1743A9A1653CD3D00C75A71 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		C1743A9C1653CED000C75A71 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.md; sourceTree = "<group>"; };
 		C179DC111652377A00EA98B5 /* ShareGlyph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareGlyph.png; sourceTree = "<group>"; };
 		C1B64D4B164F42D6007F63F7 /* teamarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teamarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B64D4F164F42D6007F63F7 /* Cocoa.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -58,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1743A9B1653CD3D00C75A71 /* Carbon.framework in Frameworks */,
 				C17439E71653211100C75A71 /* libxml2.dylib in Frameworks */,
 				C1B64DD1164FE815007F63F7 /* SystemConfiguration.framework in Frameworks */,
 				C1B64D50164F42D6007F63F7 /* Cocoa.framework in Frameworks */,
@@ -77,6 +85,15 @@
 			path = GSHTMLParser;
 			sourceTree = "<group>";
 		};
+		C1743A961653CD2A00C75A71 /* DDHotKey */ = {
+			isa = PBXGroup;
+			children = (
+				C1743A971653CD2B00C75A71 /* DDHotKeyCenter.h */,
+				C1743A981653CD2B00C75A71 /* DDHotKeyCenter.m */,
+			);
+			path = DDHotKey;
+			sourceTree = "<group>";
+		};
 		C179DC101652377A00EA98B5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +107,7 @@
 		C1B64D40164F42D6007F63F7 = {
 			isa = PBXGroup;
 			children = (
+				C1743A9C1653CED000C75A71 /* readme.md */,
 				C1B64D55164F42D6007F63F7 /* teamarks */,
 				C1B64D4E164F42D6007F63F7 /* Frameworks */,
 				C1B64D4C164F42D6007F63F7 /* Products */,
@@ -108,6 +126,7 @@
 		C1B64D4E164F42D6007F63F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1743A9A1653CD3D00C75A71 /* Carbon.framework */,
 				C17439E61653211100C75A71 /* libxml2.dylib */,
 				C1B64DD0164FE815007F63F7 /* SystemConfiguration.framework */,
 				C1B64D4F164F42D6007F63F7 /* Cocoa.framework */,
@@ -130,6 +149,7 @@
 		C1B64D55164F42D6007F63F7 /* teamarks */ = {
 			isa = PBXGroup;
 			children = (
+				C1743A961653CD2A00C75A71 /* DDHotKey */,
 				C1743A84165395F400C75A71 /* GSHTMLParser */,
 				C1B64D7B164FA213007F63F7 /* LogTools */,
 				C1B64D61164F42D6007F63F7 /* AppDelegate.h */,
@@ -223,6 +243,7 @@
 				C179DC121652377A00EA98B5 /* ShareGlyph.png in Resources */,
 				C17439E416527A7A00C75A71 /* status_icon.png in Resources */,
 				C17439E516527A7A00C75A71 /* status_icon@2x.png in Resources */,
+				C1743A9D1653CED000C75A71 /* readme.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +275,7 @@
 				C1B64D63164F42D6007F63F7 /* AppDelegate.m in Sources */,
 				C1B64D73164F90C6007F63F7 /* SendWindowController.m in Sources */,
 				C1743A8D1653A9BF00C75A71 /* GSHTMLParser.m in Sources */,
+				C1743A991653CD2B00C75A71 /* DDHotKeyCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
