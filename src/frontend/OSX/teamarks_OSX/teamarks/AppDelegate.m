@@ -35,7 +35,7 @@
     _sendWindowControllers = [NSMutableSet set];
     
     // set status item
-    NSImage *statusIcon = [NSImage imageNamed:@"status_icon.png"];
+    NSImage *statusIcon = [NSImage imageNamed:@"status_icon.tiff"];
     [statusIcon setTemplate:YES];
     
     _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -43,7 +43,6 @@
     [_statusItem setHighlightMode:YES];
     
     [_statusItem setMenu:_statusMenu];
-    
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
