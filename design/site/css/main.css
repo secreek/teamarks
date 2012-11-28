@@ -1,0 +1,18 @@
+body {
+	padding-bottom: 40px;
+	font-family: "Gill Sans";
+}
+
+.brand span {
+	vertical-align: middle;
+	margin-left: 0.1em;
+	color: #ccc;
+}
+
+.brand .tm {
+	font-size: small;
+}
+
+.bold-text {
+	font-weight: bold;
+}
