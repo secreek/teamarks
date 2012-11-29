@@ -1,4 +1,17 @@
-# example model file
+# Teamarks Database Schema
+# 
+
+class Teammember
+
+  include DataMapper::Resource
+  property :id,			Serial
+  property :created_at,	DateTime
+
+  belongs_to :team
+  belongs_to :user
+
+end
+
 class User
   include DataMapper::Resource
 
@@ -10,8 +23,9 @@ class User
   property :updated_at, DateTime
 
   validates_presence_of :name
-  has n :urls
-  has n :teams
+  has n, :urls
+  has n, :teammembers
+  has n, :teams, :through => :teammembers
 end
 
 class Url
@@ -39,7 +53,9 @@ class Team
   property :updated_at, DateTime
 
   validates_presence_of :name
-  has n :users
+  has n, :teammembers
+  has n, :users, :through => :teammembers
 end
+
 DataMapper.finalize
 DataMapper.auto_upgrade!
