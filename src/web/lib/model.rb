@@ -5,7 +5,7 @@ class Teammember
 
   include DataMapper::Resource
   property :id,			Serial
-  property :is_admin,	String
+  property :is_admin,	Boolean
   property :created_at,	DateTime
 
   belongs_to :team
