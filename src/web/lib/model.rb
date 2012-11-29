@@ -19,8 +19,8 @@ class User
 
   property :id,         Serial, :key => true
   property :username,   String,	:required => true
-  property :email,		String, :required => true, :unique => true, :format => :email_address  
-  property :token,		String
+  property :email,  		String, :required => true, :unique => true, :format => :email_address  
+  property :token,	   	String
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -49,6 +49,7 @@ class Team
 
   property :id,         Serial, :key => true
   property :name,       String 
+  property :maillist,   String, :format => email_address
   property :created_at, DateTime
   property :updated_at, DateTime
 
