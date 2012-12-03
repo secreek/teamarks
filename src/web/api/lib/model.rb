@@ -13,7 +13,7 @@ class User
   validates_presence_of :claimed_id
   has n, :team_members
   has n, :teams, :through => :team_members
-  #has n, :marks
+  has n, :marks
 end
 
 class Team
@@ -29,6 +29,7 @@ class Team
   validates_presence_of :name
   has n, :team_members
   has n, :users, :through => :team_members
+  has n, :marks
 end
 
 class TeamMember
