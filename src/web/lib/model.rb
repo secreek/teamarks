@@ -5,7 +5,7 @@ class Teammember
 
   include DataMapper::Resource
   property :id,			Serial
-  property :is_admin,	Boolean
+  property :is_admin,	String
   property :created_at,	DateTime
 
   belongs_to :team
@@ -49,7 +49,7 @@ class Team
 
   property :id,         Serial, :key => true
   property :name,       String 
-  property :maillist,   String, :format => email_address
+  property :maillist,   String, :format => :email_address
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -58,5 +58,5 @@ class Team
   has n, :users, :through => :teammembers
 end
 
-DataMapper.finalize
-DataMapper.auto_upgrade!
+#DataMapper.finalize
+#DataMapper.auto_upgrade!
