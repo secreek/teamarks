@@ -66,8 +66,12 @@ class InvitationCode
 
   property :id,         Serial,  :key => true
   property :code,       String,  :required => true
-  property :valid,      Boolean, :required => true
+  property :still_valid,      Boolean, :required => true
   property :created_at, DateTime
+
+  def taken
+    self.update(still_valid: false)
+  end
 end
 
 DataMapper.finalize
