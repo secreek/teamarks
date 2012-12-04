@@ -18,7 +18,15 @@ end
 namespace :db do
   desc 'Auto-migrate the database (destroys data)'
   task :migrate => :environment do
-    DataMapper.auto_migrate!
+    puts "***The MIGRATE Action Would Erase All Data ***\n"
+    puts "Continue(Default is NO!) ?(y/N)"
+    option = STDIN.gets.chomp.upcase()
+    if option == 'Y' then
+      DataMapper.auto_migrate!    
+    else
+      puts "Cancel the MIGRATE Action"
+    end
+  
   end
 
   desc 'Auto-upgrade the database (preserves data)'
