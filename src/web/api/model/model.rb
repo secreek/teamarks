@@ -1,4 +1,4 @@
-# Teamarks Database Schema
+#Teamarks Database Schema
 #
 class User
   include DataMapper::Resource
@@ -94,7 +94,8 @@ class InvitationCode
     "#{code}[#{status}] (created_at #{created_at})"
   end
 end
-
 DataMapper.finalize
-# Don't need auto_migrate cause rake does that for us
+# Remove the auto_migrate and auto_upgrade method from the model file
+# you can run the method with rake （check the Rakefile）
 #DataMapper.auto_migrate!
+#DataMapper.auto_upgrade!
