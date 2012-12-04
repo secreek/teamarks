@@ -73,7 +73,7 @@ class Mark
   belongs_to :team
 
   def to_s
-    "#{title}(#{url}) shared by User '#{user}' to Team '#{team}'"
+    "#{title}(#{url}) shared by User '#{user}' to Team '#{team}' from Channel '#{channel}"
   end
 end
 
