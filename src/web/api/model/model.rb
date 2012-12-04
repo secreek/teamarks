@@ -70,7 +70,7 @@ class InvitationCode
   property :created_at, DateTime
 
   def taken
-    self.update(still_valid: false)
+    self.update(:still_valid => false)
   end
 end
 
