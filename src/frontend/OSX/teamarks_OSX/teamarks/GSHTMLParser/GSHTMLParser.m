@@ -79,7 +79,7 @@ static htmlSAXHandler simpleSAXHandlerStruct;
         
         [self performSelectorOnMainThread:@selector(downloadStarted) withObject:nil waitUntilDone:NO];
         
-        _context = htmlCreatePushParserCtxt(&simpleSAXHandlerStruct, (__bridge void *)(self), NULL, 0, NULL, XML_CHAR_ENCODING_NONE);
+        _context = htmlCreatePushParserCtxt(&simpleSAXHandlerStruct, (__bridge void *)(self), NULL, 0, NULL, XML_CHAR_ENCODING_UTF8);
         
         if (_connection != nil) {
             do {
