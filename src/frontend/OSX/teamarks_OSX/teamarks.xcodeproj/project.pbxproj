@@ -205,9 +205,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C1B64D4A164F42D6007F63F7 /* teamarks */ = {
+		C1B64D4A164F42D6007F63F7 /* Teamarks */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1B64D69164F42D6007F63F7 /* Build configuration list for PBXNativeTarget "teamarks" */;
+			buildConfigurationList = C1B64D69164F42D6007F63F7 /* Build configuration list for PBXNativeTarget "Teamarks" */;
 			buildPhases = (
 				C1B64D47164F42D6007F63F7 /* Sources */,
 				C1B64D48164F42D6007F63F7 /* Frameworks */,
@@ -219,7 +219,7 @@
 			);
 			dependencies = (
 			);
-			name = teamarks;
+			name = Teamarks;
 			productName = teamarks;
 			productReference = C1B64D4B164F42D6007F63F7 /* teamarks.app */;
 			productType = "com.apple.product-type.application";
@@ -245,7 +245,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C1B64D4A164F42D6007F63F7 /* teamarks */,
+				C1B64D4A164F42D6007F63F7 /* Teamarks */,
 			);
 		};
 /* End PBXProject section */
@@ -439,7 +439,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1B64D69164F42D6007F63F7 /* Build configuration list for PBXNativeTarget "teamarks" */ = {
+		C1B64D69164F42D6007F63F7 /* Build configuration list for PBXNativeTarget "Teamarks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1B64D6A164F42D6007F63F7 /* Debug */,
