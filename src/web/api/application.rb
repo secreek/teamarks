@@ -22,19 +22,19 @@ end
 
 # for single user
 # get user info
-get '/v1/user/:id' do
+get '/v1/users/:id' do
 end
 
 # update user info
-put '/v1/user/:id' do
+put '/v1/users/:id' do
 end
 
 # delete user
-delete '/v1/user/:id' do
+delete '/v1/users/:id' do
 end
 
 # insert new user
-put '/v1/user'
+post '/v1/users'
 end
 
 # get all registered users
@@ -43,19 +43,19 @@ end
 
 # Team APIs
 # get a specific team
-get '/v1/team/:id' do
+get '/v1/teams/:id' do
 end
 
 # update a team's info
-put '/v1/team/:id' do
+put '/v1/teams/:id' do
 end
 
 # delete a team
-delete '/v1/team/:id' do
+delete '/v1/teams/:id' do
 end
 
 # create a new team
-put '/v1/team' do
+post '/v1/teams' do
 end
 
 # get all teams
@@ -64,37 +64,37 @@ end
 
 # TeamAdmin APIs
 # get all team members for a specfic team
-get '/v1/team/:id/members' do
+get '/v1/teams/:id/members' do
 end
 
 # get all teams a user joined
-get '/v1/user/:id/teams' do
+get '/v1/users/:id/teams' do
 end
 
 # get the role of a user in some team
-get '/v1/team/:team_id/member/:user_id/role' do
+get '/v1/teams/:team_id/members/:user_id/role' do
 end
 
 # get the status of a user in some team
-get '/v1/team/:team_id/member/:user_id/status' do
+get '/v1/teams/:team_id/members/:user_id/status' do
 end
 
 # insert / update the role of a user in some team
 # arguments:
 #     value - integer, the value of the role [REQUIRED]
-# PUT /v1/team/1/member/2/role?value=1
-put '/v1/team/:team_id/member/:user_id/role' do
+# PUT /v1/teams/1/members/2/role?value=1
+put '/v1/teams/:team_id/members/:user_id/role' do
 end
 
 # insert / update the status of a user in some team
 # arguments:
 #     value - integer, the value of the status [REQUIRED]
-# PUT /v1/team/1/member/2/status?value=2
-put '/v1/team/:team_id/member/:user_id/status' do
+# PUT /v1/teams/1/members/2/status?value=2
+put '/v1/teams/:team_id/members/:user_id/status' do
 end
 
 # remove a member from a team
-delete '/v1/team/:team_id/member/:user_id' do
+delete '/v1/teams/:team_id/members/:user_id' do
 end
 
 # Marks APIs
@@ -102,15 +102,15 @@ end
 # prepared for paperboy
 # arguments:
 #     later_than - integer [OPTIONAL]
-# GET /v1/marks/team/2?later_than=20
-get '/v1/marks/team/:team_id' do
+# GET /v1/marks/teams/2?later_than=20
+get '/v1/marks/teams/:team_id' do
 end
 
 # get the list of marks shared by a user to a team
 # arguments:
 #     later_than - integer [OPTIONAL]
-# GET /v1/marks/team/2/user/1?later_than=20
-get '/v1/marks/team/:team_id/user/:user_id' do
+# GET /v1/marks/teams/2/users/1?later_than=20
+get '/v1/marks/teams/:team_id/users/:user_id' do
 end
 
 # get a list of marks, by some filters
@@ -122,37 +122,31 @@ get '/v1/marks' do
 end
 
 # share a new mark
-put '/v1/mark' do
-end
-
-# update a mark content (not quite useful)
-put '/v1/mark/:id' do
-end
-
-# delete a mark
-delete '/v1/mark/:id' do
+post '/v1/marks' do
 end
 
 # Invitation APIs
-# get a new valid code
-# arguments:
-#     valid - true / false [OPTIONAL]
-# GET /v1/invitation-code?valid=false
-get '/v1/invitation-code' do
+# get a bunch of invitation codes
+# arguments
+#     valid - true / false [OPTIONAL, default to true]
+#     num - integer [OPTIONAL, default to 1]
+# GET /v1/invitation-codes?num=5&valid=true
+get '/v1/invitation-codes' do
 end
 
 # get the info for a specific code
-# GET /v1/invitation-code/1
-get '/v1/invitation-code/:id' do
+# GET /v1/invitation-codes/1
+get '/v1/invitation-codes/:id' do
+end
+
+# create a new code
+post '/v1/invitation-codes' do
 end
 
 # update the code info
-put '/v1/invitation-code/:id' do
+put '/v1/invitation-codes/:id' do
 end
 
-# get a bunch of invitation codes
-# arguments
-#     num - integer [OPTIONAL, default to 1]
-# GET /v1/invitation-codes?num=5
-get '/v1/invitation-codes' do
+# delete the code info
+delete '/v1/invitation-codes/:id' do
 end
