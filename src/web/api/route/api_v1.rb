@@ -1,27 +1,65 @@
 require 'sinatra'
+require 'data_mapper'
+require './model/model.rb'
+require './helper/http_helper.rb'
+require 'json'
 # APIs v1
 
 # User APIs
 # for single user
 # get user info
 get '/v1/users/:id' do
-  puts "Got #{params[:id]}"
+  begin
+    user = User.get!(params[:id])
+    Response.new(200, user).to_json
+  rescue DataMapper::ObjectNotFoundError
+    Response.new(404, 'User not found').to_json
+  end
 end
 
 # update user info
 put '/v1/users/:id' do
+  begin
+    user = User.get!(params[:id])
+    user.update(User.normalize_params(params))
+    Response.new(200, user).to_json
+  rescue DataMapper::ObjectNotFoundError
+    Response.new(404, 'User not found').to_json
+  rescue DataMapper::SaveFailureError
+    Response.new(500, 'User not inserted').to_json
+  rescue DataMapper::UpdateConflictError
+    Response.new(500, 'Update Conflict').to_json
+  end
 end
 
 # delete user
 delete '/v1/users/:id' do
+  begin
+    User.get!(params[:id]).destroy
+    Response.new(200, 'Deleted').to_json
+  rescue DataMapper::ObjectNotFoundError
+    Response.new(404, 'User not found').to_json
+  end
 end
 
 # insert new user
 post '/v1/users' do
+  begin
+    user = User.new(User.normalize_params(params))
+    user.save
+    Response.new(200, user).to_json
+  rescue DataMapper::SaveFailureError
+    Response.new(500, 'User not inserted').to_json
+  end
 end
 
 # get all registered users
 get '/v1/users' do
+  result = []
+  User.all.to_a.each do |user|
+    result << user.to_json_obj
+  end
+  Response.new(200, result).to_json
 end
 
 # Team APIs

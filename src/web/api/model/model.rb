@@ -1,3 +1,5 @@
+require 'data_mapper'
+
 #Teamarks Database Schema
 #
 class User
@@ -17,6 +19,20 @@ class User
 
   def to_s
     "#{nickname} (identified by #{claimed_id})"
+  end
+
+  def to_json_obj
+    {
+      'id' => id,
+      'claimed_id' => claimed_id,
+      'nickname' => nickname,
+      'email' => email
+    }
+  end
+
+  def self.normalize_params params
+    possible_param_keys = ["id", "claimed_id", "nickname", "email"]
+    params.delete_if {|key, value| !possible_param_keys.include?(key) }
   end
 end
 

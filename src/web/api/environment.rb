@@ -14,6 +14,8 @@ configure do
   # load models
   $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/model")
   DataMapper.setup(:default, "sqlite:///#{File.expand_path(File.dirname(__FILE__))}/#{Sinatra::Base.environment}.db")
+  # DM configurations
+  DataMapper::Model.raise_on_save_failure = true
 
   Dir.glob("#{File.dirname(__FILE__)}/model/*.rb") { |model| require File.basename(model, '.*') }
 end
