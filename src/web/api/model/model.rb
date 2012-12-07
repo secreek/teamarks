@@ -31,8 +31,12 @@ class User
   end
 
   def self.normalize_params params
-    possible_param_keys = ["id", "claimed_id", "nickname", "email"]
+    possible_param_keys = ["claimed_id", "nickname", "email"]
     params.delete_if {|key, value| !possible_param_keys.include?(key) }
+  end
+
+  def self.is_unique_attribute? name
+    return ["claimed_id", "nickname", "email"].include? name
   end
 end
 

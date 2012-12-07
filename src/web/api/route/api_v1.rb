@@ -42,6 +42,21 @@ delete '/v1/users/:id' do
   end
 end
 
+# test if the unique attributes has been taken
+# arguments:
+#     name - name of the attribute
+#     value - value of the attribute
+# return value:
+#     1 if the attribute is unique and the value has been taken
+#     0 otherwise
+get '/v1/users/attrs/is_unique' do
+  name = params["name"]
+  value = params["value"]
+  return Response.new(200, 0).to_json if !User.is_unique_attribute? name
+  result = (User.count(name => value) == 0)
+  return Response.new(200, result ? 1 : 0).to_json
+end
+
 # insert new user
 post '/v1/users' do
   begin
