@@ -46,7 +46,7 @@ class Team
   include DataMapper::Resource
 
   property :id,          Serial, :key => true
-  property :name,        String, :required => true, :unique => true
+  property :name,        String, :required => true, unique => true
   property :description, Text
   property :mailinglist, String, :format => :email_address
   property :created_at,  DateTime, :default => Time.now
@@ -85,8 +85,8 @@ class TeamMember
   include DataMapper::Resource
 
   property :id,			    Serial,   :key => true
-  property :role,	      Integer,  :required => true
-  property :status,     Integer,  :required => true
+  property :role,	      Integer,  :default => 0
+  property :status,     Integer,  :default => 0
   property :created_at,	DateTime, :default => Time.now
   property :updated_at, DateTime, :default => Time.now
 
@@ -112,10 +112,6 @@ class TeamMember
   def self.normalize_params params
     possible_param_keys = ["id", "role", "status", "team", "user", "created_at", "updated_at"]
     params.delete_if {|key, value| !possible_param_keys.include?(key) }
-  end
-
-  def self.is_unique_attribute? name
-    return false
   end
 end
 
@@ -156,10 +152,6 @@ class Mark
     possible_param_keys = ["id", "url", "title", "text", "channel", "team", "user", "created_at", "updated_at"]
     params.delete_if {|key, value| !possible_param_keys.include?(key) }
   end
-
-  def self.is_unique_attribute? name
-    return false
-  end
 end
 
 class InvitationCode
@@ -191,10 +183,6 @@ class InvitationCode
   def self.normalize_params params
     possible_param_keys = ["id", "code", "still_valid", "created_at", "updated_at"]
     params.delete_if {|key, value| !possible_param_keys.include?(key) }
-  end
-
-  def self.is_unique_attribute? name
-    return false
   end
 end
 

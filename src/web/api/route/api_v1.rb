@@ -115,8 +115,6 @@ namespace '/v1' do
     end
   end
 
-  # WARNING: Duplicate Code HERE!!
-  # TODO compress these codes
   # test if the unique attributes has been taken
   # arguments:
   #     name - name of the attribute
@@ -155,40 +153,101 @@ namespace '/v1' do
   # TeamAdmin APIs
   # get all team members for a specfic team
   get '/teams/:id/members' do
+    begin
+      result = {}
+      team = Team.get!(params[:id])
+      result['team'] = team
+      members = []
+      TeamMember.all('team' => team).to_a.each do |relation|
+        members << relation.user.to_json_obj
+      end
+      result['members'] = members
+      Response.new(200, result).to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Team not found').to_json
+    end
   end
 
   # get all teams a user joined
   get '/users/:id/teams' do
+    begin
+      result = {}
+      user = User.get!(params[:id])
+      result['user'] = user
+      teams = []
+      TeamMember.all('user' => user).to_a.each do |relation|
+        teams << relation.team.to_json_obj
+      end
+      result['teams'] = teams
+      Response.new(200, result).to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'User not found').to_json
+    end
+  end
+
+  def team_and_user_parser params
+    user = User.get(params[:user_id])
+    team = Team.get(params[:team_id])
+
+    [team, user]
   end
 
   # create the relationship with a user and a team
   post '/teams/:team_id/members/:user_id' do
+    team, user = team_and_user_parser(params)
+    return Response.new(404, 'User not found').to_json unless user
+    return Response.new(404, 'Team not found').to_json unless team
+
+    begin
+      params['team'] = team
+      params['user'] = user
+      relation = TeamMember.new(TeamMember.normalize_params(params))
+      relation.save
+      Response.new(200, relation).to_json
+    rescue DataMapper::SaveFailureError
+      Response.new(500, 'relationship not inserted').to_json
+    end
   end
 
-  # get the role of a user in some team
-  get '/teams/:team_id/members/:user_id/role' do
+  # get the infomation of a relationship between a user and a team
+  get '/teams/:team_id/members/:user_id' do
+    team, user = team_and_user_parser(params)
+    return Response.new(404, 'User not found').to_json unless user
+    return Response.new(404, 'Team not found').to_json unless team
+
+    relation = TeamMember.all('team' => team, 'user' => user)
+    return Response.new(404, 'Relationship not found').to_json if relation.count == 0
+    Response.new(200, relation[0]).to_json
   end
 
-  # get the status of a user in some team
-  get '/teams/:team_id/members/:user_id/status' do
-  end
+  # update the values of a relationship between a team and a user
+  put '/teams/:team_id/members/:user_id' do
+    team, user = team_and_user_parser(params)
+    return Response.new(404, 'User not found').to_json unless user
+    return Response.new(404, 'Team not found').to_json unless team
 
-  # update the role of a user in some team
-  # arguments:
-  #     value - integer, the value of the role [REQUIRED]
-  # PUT /v1/teams/1/members/2/role?value=1
-  put '/teams/:team_id/members/:user_id/role' do
-  end
-
-  # update the status of a user in some team
-  # arguments:
-  #     value - integer, the value of the status [REQUIRED]
-  # PUT /v1/teams/1/members/2/status?value=2
-  put '/teams/:team_id/members/:user_id/status' do
+    begin
+      relation = TeamMember.all('team' => team, 'user' => user)
+      return Response.new(404, 'Relationship not found').to_json if relation.count == 0
+      relation[0].update(TeamMember.normalize_params(params))
+      Response.new(200, relation).to_json
+    rescue DataMapper::SaveFailureError
+      Response.new(500, 'Relationship not inserted').to_json
+    rescue DataMapper::UpdateConflictError
+      Response.new(409, 'Update Conflict').to_json
+    end
   end
 
   # remove a member from a team
   delete '/teams/:team_id/members/:user_id' do
+    team, user = team_and_user_parser(params)
+    return Response.new(404, 'User not found').to_json unless user
+    return Response.new(404, 'Team not found').to_json unless team
+
+    relation = TeamMember.all('team' => team, 'user' => user)
+    return Response.new(404, 'Relationship not found').to_json if relation.count == 0
+    relation[0].destroy
+    Response.new(200, 'Deleted').to_json
   end
 
   # Marks APIs
