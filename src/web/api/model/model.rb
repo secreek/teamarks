@@ -167,7 +167,7 @@ class InvitationCode
 
   property :id,          Serial, :key => true
   property :code,        String, :required => true
-  property :still_valid, Boolean, :required => true, :default => true
+  property :still_valid, Boolean, :default => true
   property :created_at,  DateTime, :default => Time.now
 
   def taken

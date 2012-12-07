@@ -226,22 +226,79 @@ namespace '/v1' do
   #     num - integer [OPTIONAL, default to 1]
   # GET /v1/invitation-codes?num=5&valid=true
   get '/invitation-codes' do
+    result = []
+
+    still_valid = true # defaults to true
+    still_valid = false if params['valid'] == 'false'
+    num = params['num'].to_i
+    num -= 1 unless num == 0
+
+    all_codes = InvitationCode.all('still_valid' => still_valid).to_a
+    sub_codes = all_codes.shuffle[0..num]
+
+    sub_codes.each do |team|
+      result << team.to_json_obj
+    end
+    Response.new(200, result).to_json
   end
 
   # get the info for a specific code
   # GET /v1/invitation-codes/1
   get '/invitation-codes/:id' do
+    begin
+      code = InvitationCode.get!(params[:id])
+      Response.new(200, code).to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Invitation code not found').to_json
+    end
   end
 
   # create a new code
   post '/invitation-codes' do
+    begin
+      code = InvitationCode.new(InvitationCode.normalize_params(params))
+      code.save
+      Response.new(200, code).to_json
+    rescue DataMapper::SaveFailureError
+      Response.new(500, 'Invitation code not inserted').to_json
+    end
+  end
+
+  # used a invitation code
+  post '/invitation-codes/:id/used' do
+    begin
+      code = InvitationCode.get!(params[:id])
+      code.taken
+      Response.new(200, 'Invitation code used').to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Invitation code not found').to_json
+    rescue DataMapper::UpdateConflictError
+      Response.new(409, 'Update Conflict').to_json
+    end
   end
 
   # update the code info
   put '/invitation-codes/:id' do
+    begin
+      code = InvitationCode.get!(params[:id])
+      code.update(InvitationCode.normalize_params(params))
+      Response.new(200, code).to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Invitation code not found').to_json
+    rescue DataMapper::SaveFailureError
+      Response.new(500, 'Invitation code not inserted').to_json
+    rescue DataMapper::UpdateConflictError
+      Response.new(409, 'Update Conflict').to_json
+    end
   end
 
   # delete the code info
   delete '/invitation-codes/:id' do
+    begin
+      InvitationCode.get!(params[:id]).destroy
+      Response.new(200, 'Deleted').to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Invitation code not found').to_json
+    end
   end
 end
