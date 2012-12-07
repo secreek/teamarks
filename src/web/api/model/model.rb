@@ -26,12 +26,14 @@ class User
       'id' => id,
       'claimed_id' => claimed_id,
       'nickname' => nickname,
-      'email' => email
+      'email' => email,
+      'created_at' => created_at,
+      'updated_at' => updated_at
     }
   end
 
   def self.normalize_params params
-    possible_param_keys = ["claimed_id", "nickname", "email"]
+    possible_param_keys = ["claimed_id", "nickname", "email", "created_at", "updated_at"]
     params.delete_if {|key, value| !possible_param_keys.include?(key) }
   end
 
@@ -44,7 +46,7 @@ class Team
   include DataMapper::Resource
 
   property :id,          Serial, :key => true
-  property :name,        String, :required => true
+  property :name,        String, :required => true, :unique => true
   property :description, Text
   property :mailinglist, String, :format => :email_address
   property :created_at,  DateTime, :default => Time.now
@@ -57,6 +59,25 @@ class Team
 
   def to_s
     "#{name} (#{description})"
+  end
+
+  def to_json_obj
+    {
+      'id' => id,
+      'name' => name,
+      'description' => description,
+      'created_at' => created_at,
+      'updated_at' => updated_at
+    }
+  end
+
+  def self.normalize_params params
+    possible_param_keys = ["name", "description", "created_at", "updated_at"]
+    params.delete_if {|key, value| !possible_param_keys.include?(key) }
+  end
+
+  def self.is_unique_attribute? name
+    return ["name"].include? name
   end
 end
 
@@ -74,6 +95,27 @@ class TeamMember
 
   def to_s
     "User '#{user}' @ Team '#{team}'"
+  end
+
+  def to_json_obj
+    {
+      'id' => id,
+      'team' => team.to_json_obj,
+      'user' => user.to_json_obj,
+      'role' => role,
+      'status' => status,
+      'created_at' => created_at,
+      'updated_at' => updated_at
+    }
+  end
+
+  def self.normalize_params params
+    possible_param_keys = ["id", "role", "status", "team", "user", "created_at", "updated_at"]
+    params.delete_if {|key, value| !possible_param_keys.include?(key) }
+  end
+
+  def self.is_unique_attribute? name
+    return false
   end
 end
 
@@ -95,6 +137,29 @@ class Mark
   def to_s
     "#{title}(#{url}) shared by User '#{user}' to Team '#{team}' from Channel '#{channel}"
   end
+
+  def to_json_obj
+    {
+      'id' => id,
+      'url' => url,
+      'title' => title,
+      'text' => text,
+      'channel' => channel,
+      'team' => team.to_json_obj,
+      'user' => user.to_json_obj,
+      'created_at' => created_at,
+      'updated_at' => updated_at
+    }
+  end
+
+  def self.normalize_params params
+    possible_param_keys = ["id", "url", "title", "text", "channel", "team", "user", "created_at", "updated_at"]
+    params.delete_if {|key, value| !possible_param_keys.include?(key) }
+  end
+
+  def self.is_unique_attribute? name
+    return false
+  end
 end
 
 class InvitationCode
@@ -102,7 +167,7 @@ class InvitationCode
 
   property :id,          Serial, :key => true
   property :code,        String, :required => true
-  property :still_valid, Boolean, :required => true
+  property :still_valid, Boolean, :required => true, :default => true
   property :created_at,  DateTime, :default => Time.now
 
   def taken
@@ -113,7 +178,26 @@ class InvitationCode
     status = still_valid ? 'valid' : 'invalid'
     "#{code}[#{status}] (created_at #{created_at})"
   end
+
+  def to_json_obj
+    {
+      'id' => id,
+      'code' => code,
+      'still_valid' => still_valid,
+      'created_at' => created_at
+    }
+  end
+
+  def self.normalize_params params
+    possible_param_keys = ["id", "code", "still_valid", "created_at", "updated_at"]
+    params.delete_if {|key, value| !possible_param_keys.include?(key) }
+  end
+
+  def self.is_unique_attribute? name
+    return false
+  end
 end
+
 DataMapper.finalize
 # Remove the auto_migrate and auto_upgrade method from the model file
 # you can run the method with rake （check the Rakefile）

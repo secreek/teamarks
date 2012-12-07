@@ -5,7 +5,7 @@ require './model/model.rb'
 require './helper/http_helper.rb'
 require 'json'
 
-# APIs v1
+# APIs v1 - User
 namespace '/v1' do
   # User APIs
   # for single user
@@ -82,22 +82,74 @@ namespace '/v1' do
   # Team APIs
   # get a specific team
   get '/teams/:id' do
+    begin
+      team = Team.get!(params[:id])
+      Response.new(200, team).to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Team not found').to_json
+    end
   end
 
   # update a team's info
   put '/teams/:id' do
+    begin
+      team = Team.get!(params[:id])
+      team.update(Team.normalize_params(params))
+      Response.new(200, team).to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Team not found').to_json
+    rescue DataMapper::SaveFailureError
+      Response.new(500, 'Team not inserted').to_json
+    rescue DataMapper::UpdateConflictError
+      Response.new(409, 'Update Conflict').to_json
+    end
   end
 
   # delete a team
   delete '/teams/:id' do
+    begin
+      Team.get!(params[:id]).destroy
+      Response.new(200, 'Deleted').to_json
+    rescue DataMapper::ObjectNotFoundError
+      Response.new(404, 'Team not found').to_json
+    end
+  end
+
+  # WARNING: Duplicate Code HERE!!
+  # TODO compress these codes
+  # test if the unique attributes has been taken
+  # arguments:
+  #     name - name of the attribute
+  #     value - value of the attribute
+  # return value:
+  #     1 if the attribute is unique and the value has been taken
+  #     0 otherwise
+  get '/teams/attrs/is_unique' do
+    name = params["name"]
+    value = params["value"]
+    return Response.new(200, 0).to_json if !Team.is_unique_attribute? name
+    result = (Team.count(name => value) == 0)
+    return Response.new(200, result ? 1 : 0).to_json
   end
 
   # create a new team
   post '/teams' do
+    begin
+      team = Team.new(Team.normalize_params(params))
+      team.save
+      Response.new(200, team).to_json
+    rescue DataMapper::SaveFailureError
+      Response.new(500, 'Team not inserted').to_json
+    end
   end
 
   # get all teams
   get '/teams' do
+    result = []
+    Team.all.to_a.each do |team|
+      result << team.to_json_obj
+    end
+    Response.new(200, result).to_json
   end
 
   # TeamAdmin APIs
@@ -109,6 +161,10 @@ namespace '/v1' do
   get '/users/:id/teams' do
   end
 
+  # create the relationship with a user and a team
+  post '/teams/:team_id/members/:user_id' do
+  end
+
   # get the role of a user in some team
   get '/teams/:team_id/members/:user_id/role' do
   end
@@ -117,14 +173,14 @@ namespace '/v1' do
   get '/teams/:team_id/members/:user_id/status' do
   end
 
-  # insert / update the role of a user in some team
+  # update the role of a user in some team
   # arguments:
   #     value - integer, the value of the role [REQUIRED]
   # PUT /v1/teams/1/members/2/role?value=1
   put '/teams/:team_id/members/:user_id/role' do
   end
 
-  # insert / update the status of a user in some team
+  # update the status of a user in some team
   # arguments:
   #     value - integer, the value of the status [REQUIRED]
   # PUT /v1/teams/1/members/2/status?value=2
