@@ -85,10 +85,23 @@ class TeamMember
   include DataMapper::Resource
 
   property :id,			    Serial,   :key => true
-  property :role,	      Integer,  :default => 0
+  property :role,	      Integer,  :default => ROLE_DICT['ROLE_MEMBER']
   property :status,     Integer,  :default => 0
   property :created_at,	DateTime, :default => Time.now
   property :updated_at, DateTime, :default => Time.now
+
+  ROLE_DICT = {
+    'OWNER'  => 1
+    'ADMIN'  => 2
+    'MEMBER' => 3
+  }
+
+  STATUS_DICT = {
+    'NORMAL'   => 1
+    'BANNED'   => 2
+    'WAITING'  => 3
+    'INVITING' => 4
+  }
 
   belongs_to :team
   belongs_to :user
@@ -120,11 +133,18 @@ class Mark
 
   property :id,         Serial, :key => true
   property :url,     	  String,	:required => true, :format => :url
-  property :title,		  String, :length => 255, :required => true
+  property :title,		  String, :required => true, :length => 255
   property :text,		    Text
-  property :channel,    Integer, :required => true
+  property :channel,    Integer, :default => CHANNEL_DICT['UNKNOWN']
   property :created_at, DateTime, :default => Time.now
   property :updated_at, DateTime, :default => Time.now
+
+  CHANNEL_DICT = {
+    'UNKNOWN' => 0,
+    'CHROME'  => 1,
+    'SAFARI'  => 2,
+    'ANDROID' => 3
+  }
 
   validates_presence_of :url
   belongs_to :user

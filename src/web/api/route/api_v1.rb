@@ -275,7 +275,30 @@ namespace '/v1' do
   end
 
   # share a new mark
-  post '/marks' do
+  # required arguments:
+  #     teams - comma seperated number list
+  #     url   - url of the page
+  #     title
+  #     description
+  #     channel - where the mark is shared
+  post '/marks/user/:user_id' do
+    user = User.get(params[:user_id])
+    return Response.new(404, 'User not found') unless user
+    params['user'] = user
+
+    result = []
+    teams = params[:teams].split(/\s*,\s*/)
+    teams.each do |team_id|
+      team = Team.get(team_id)
+      if team and TeamAdmin.count('user' => user, 'team' => team) > 0
+        params['team'] = team
+        mark = Mark.new(params)
+        mark.save
+        result << mark
+      else
+        result << "Team #{team_id} not found"
+      end
+    end
   end
 
   # Invitation APIs
