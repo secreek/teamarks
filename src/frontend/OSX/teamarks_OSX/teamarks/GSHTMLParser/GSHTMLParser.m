@@ -95,12 +95,13 @@ static htmlSAXHandler simpleSAXHandlerStruct;
 #pragma mark - NSURLConnection Delegate
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    NSLog(@"didFailWithError");
     _done = YES;
     [self performSelectorOnMainThread:@selector(downloadError:) withObject:error waitUntilDone:NO];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSLog(@"didReceiveData");
+    //NSLog(@"didReceiveData");
     //NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     if (_context != NULL) {
         htmlParseChunk(_context, (const char*)[data bytes], (int)[data length], 0); // !!!: uint to int cast

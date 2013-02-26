@@ -9,6 +9,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "SendWindowController.h"
 #import "LogTools.h"
+#import "PreferencesWindowController.h"
 #import <GSHTMLParser.h>
 
 #define API_URL_BASE @"http://api.teamarks.com/"
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) GSHTMLParser *titleParser;
 @property (assign, nonatomic) BOOL foundTitle;
 @property (assign, nonatomic) BOOL shouldRelease;
+@property (strong, nonatomic) NSMutableString *titleStr;
 
 @end
 
@@ -125,6 +127,7 @@
     }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17" forHTTPHeaderField:@"User-Agent"];
+    [request setHTTPMethod:@"GET"];
     [self setTitleParser:[[GSHTMLParser alloc] initWithURLRequest:request]];
     [_titleParser setDelegate:self];
     [_titleParser parse];
@@ -135,17 +138,20 @@
 
 - (void)parser:(GSHTMLParser *)parser didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict
 {
-    //NSLog(@"%@", elementName);
+    //DLog(@"%@", elementName);
     if ([elementName isEqualToString:@"title"]) {
         _foundTitle = YES;
+        _titleStr = [[NSMutableString alloc] initWithCapacity:0];
     }
 }
 
 - (void)parser:(GSHTMLParser *)parser didEndElement:(NSString *)elementName
 {
-    //NSLog(@"%@", elementName);
+    //DLog(@"%@", elementName);
     if ([elementName isEqualToString:@"title"]) {
         _foundTitle = NO;
+        [_titleField setStringValue:_titleStr];
+        [_titleIndicator setHidden:YES];
         [_titleParser abortParsing];
         [self setTitleParser:nil];
     }
@@ -155,19 +161,18 @@
     if (_foundTitle) {
         DLog(@"%@", string);
         if (string != nil) {
-            [_titleField setStringValue:string];
-            [_titleIndicator setHidden:YES];
+            [_titleStr appendString:string];
         }
     }
 }
 
 - (void)parserDidEndDocument:(GSHTMLParser *)parser {
-    NSLog(@"endDocument");
+    DLog(@"endDocument");
     [_titleIndicator setHidden:YES];
 }
 
 - (void)parserDidStartDocument:(GSHTMLParser *)parser {
-    NSLog(@"start parse"); 
+    DLog(@"start parse"); 
 }
 
 - (void)parser:(GSHTMLParser *)parser parseErrorOccurred:(NSError *)parseError {
@@ -196,6 +201,12 @@
 
 - (void)send:(id)sender
 {
+    NSString *userID = [[NSUserDefaults standardUserDefaults] stringForKey:kPreferencesUserID];
+    if (!userID || userID.length == 0) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Please input a valid user ID in Preferences." defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
+        [alert runModal];
+    }
+    
     [self changeSendStatus:YES];
     
     NSString *title = [_titleField stringValue];

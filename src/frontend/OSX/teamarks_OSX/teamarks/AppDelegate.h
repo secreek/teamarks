@@ -9,7 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import "SendWindowController.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, SendWindowControllerDelegate>
+@interface AppDelegate : NSObject
+<
+NSApplicationDelegate,
+SendWindowControllerDelegate,
+NSURLConnectionDataDelegate,
+NSURLConnectionDelegate
+>
 
 
 @end

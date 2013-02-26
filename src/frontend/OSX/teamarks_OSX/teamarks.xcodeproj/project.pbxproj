@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8CEEC6B84CB6404B9E2761C8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423419F4C05748098A65CE94 /* libPods.a */; };
+		C117FF7316DC9718001DFE4F /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C117FF7116DC9718001DFE4F /* PreferencesWindowController.m */; };
+		C117FF7416DC9718001DFE4F /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C117FF7216DC9718001DFE4F /* PreferencesWindowController.xib */; };
 		C17439E416527A7A00C75A71 /* status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C17439E216527A7A00C75A71 /* status_icon.png */; };
 		C17439E516527A7A00C75A71 /* status_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C17439E316527A7A00C75A71 /* status_icon@2x.png */; };
 		C17439E71653211100C75A71 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C17439E61653211100C75A71 /* libxml2.dylib */; };
@@ -45,6 +47,9 @@
 /* Begin PBXFileReference section */
 		423419F4C05748098A65CE94 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		66D6860866504D438E80B957 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		C117FF7016DC9718001DFE4F /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		C117FF7116DC9718001DFE4F /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		C117FF7216DC9718001DFE4F /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		C17439E216527A7A00C75A71 /* status_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_icon.png; sourceTree = "<group>"; };
 		C17439E316527A7A00C75A71 /* status_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_icon@2x.png"; sourceTree = "<group>"; };
 		C17439E61653211100C75A71 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -56,7 +61,7 @@
 		C1743A9C1653CED000C75A71 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.md; sourceTree = "<group>"; };
 		C1743AAC1654791500C75A71 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = teamarks/Sparkle.framework; sourceTree = "<group>"; };
 		C1743AAE16547B7B00C75A71 /* teamarks_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teamarks_pub.pem; sourceTree = "<group>"; };
-		C1B64D4B164F42D6007F63F7 /* teamarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teamarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1B64D4B164F42D6007F63F7 /* teamarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = teamarks.app; path = Teamarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B64D4F164F42D6007F63F7 /* Cocoa.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C1B64D52164F42D6007F63F7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C1B64D53164F42D6007F63F7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -175,6 +180,9 @@
 				C1B64D70164F90C6007F63F7 /* SendWindowController.h */,
 				C1B64D71164F90C6007F63F7 /* SendWindowController.m */,
 				C1B64D72164F90C6007F63F7 /* SendWindowController.xib */,
+				C117FF7016DC9718001DFE4F /* PreferencesWindowController.h */,
+				C117FF7116DC9718001DFE4F /* PreferencesWindowController.m */,
+				C117FF7216DC9718001DFE4F /* PreferencesWindowController.xib */,
 				C1B64D64164F42D6007F63F7 /* MainMenu.xib */,
 				C179DC101652377A00EA98B5 /* Resources */,
 				C1B64D56164F42D6007F63F7 /* Supporting Files */,
@@ -263,6 +271,7 @@
 				C17439E516527A7A00C75A71 /* status_icon@2x.png in Resources */,
 				C1743A9D1653CED000C75A71 /* readme.md in Resources */,
 				C1743AAF16547B7B00C75A71 /* teamarks_pub.pem in Resources */,
+				C117FF7416DC9718001DFE4F /* PreferencesWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +304,7 @@
 				C1B64D73164F90C6007F63F7 /* SendWindowController.m in Sources */,
 				C1743A8D1653A9BF00C75A71 /* GSHTMLParser.m in Sources */,
 				C1743A991653CD2B00C75A71 /* DDHotKeyCenter.m in Sources */,
+				C117FF7316DC9718001DFE4F /* PreferencesWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
